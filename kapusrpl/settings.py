@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-+l9d&gu8rjab*e0!z%s7zf9!vn^p^fwn05oup14lo$xmc4j2zd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['34.83.249.195','127.0.0.1']
 
@@ -78,9 +78,17 @@ WSGI_APPLICATION = 'kapusrpl.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'kapus',
+        'USER': 'postgres',
+        'PASSWORD': 'vs*ukM2hO459Jqk4yE1&x',
+        'HOST':'34.105.84.61',
+        'PORT':5432,
+        'OPTIONS':{
+            'options': '-c search_path=kapus'
+        }
+    },
+
 }
 
 

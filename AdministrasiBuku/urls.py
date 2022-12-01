@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from AdministrasiBuku import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('homepage.urls')),
-    path('administrasi-buku/', include('AdministrasiBuku.urls')),
+    path('Form-Buku/', views.penambahan_buku, name='penambahan_buku'),
+    path('Form-Perpus/', views.penambahan_perpus, name='penambahan_perpus'),
+    path('json_buku/', views.json_buku, name='json_buku'),
+    path('json_perpus/', views.json_perpus, name='json_perpus'),
 ]

@@ -9,3 +9,11 @@ class Buku(models.Model):
 
     class Meta:
         db_table = 'buku'
+
+
+class Perpustakaan(models.Model):
+    nama = models.CharField(max_length=100, primary_key=True, null=False)
+    lokasi = models.CharField(max_length=100)
+    alamat = models.CharField(max_length=200)
+    class Meta:
+        db_table = 'perpustakaan'

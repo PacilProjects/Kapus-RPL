@@ -1,25 +1,63 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
-from .models import User
+from crispy_forms.helper import FormHelper
+from django.db import connection
 
-class PenggunaSignUpForm(UserCreationForm):
-    class Meta(UserCreationForm.Meta):
-        model = User
+class userPenggunaPengelola(forms.Form):
+    pilihanUser = (
+        ('Pengguna', 'Pengguna'),
+        ('Pengelola', 'Pengelola')
+    )
 
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        user.is_pengguna = True
-        if commit: user.save()
+    tipeUser = forms.ChoiceField(
+        choices = pilihanUser,
+        required = True,
+        widget = forms.widgets.RadioSelect(attrs={
+            'required': True
+        })
+    )
 
-        return user
+    username = forms.CharField(
+        label = 'Username',
+        widget = forms.widgets.TextInput(attrs={
+            'placeholder': 'Nama Lengkap',
+            'type': 'text',
+            'required': True
+        })
+    )
 
-class AdminPerpusSignUpForm(UserCreationForm):
-    class Meta(UserCreationForm.Meta):
-        model = User
+    password = forms.CharField(
+        label = 'Password',
+        widget = forms.PasswordInput(),
+        required = True
+    )
 
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        user.is_notpengguna = True
-        if commit: user.save()
+    lokasi = forms.CharField(
+        label = 'lokasi',
+        widget = forms.TextInput(attrs={
+            'placeholder': 'Lokasi',
+            'type': 'text',
+            'required': True
+        })
+    )
 
-        return user 
+    email = forms.CharField(
+        label = 'Email',
+        widget = forms.widgets.EmailInput(
+            attrs={
+                'placeholder': 'Email',
+                'type': 'text',
+                'required': True
+            }
+        )
+    )
+
+    hp = forms.CharField(
+        label = 'Nomor HP',
+        widget = forms.widgets.TextInput(
+            attrs={
+                'placeholder': 'Nomor HP',
+                'type': 'text',
+                'required': True
+            }
+        )
+    )

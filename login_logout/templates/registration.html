@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+</head>
+<body>
+    <h1>Testing</h1>
+    {% load crispy_forms_tags %}
+    <form action="" method="POST" id="regform">
+        {% csrf_token %}
+        {{ userKapus.username|as_crispy_field }}
+        {{ userKapus.password|as_crispy_field }}
+        {{ userKapus.lokasi|as_crispy_field }}
+        {{ userKapus.email|as_crispy_field }}
+        {{ userKapus.hp|as_crispy_field }}
+        {{ userKapus.tipeUser|as_crispy_field }}
+        
+        <div>
+            <a href="/accounts">
+                <button type="submit" id="submitted"> Register </button>
+            </a>
+        </div>
+    </form>
+</body>
+</html>

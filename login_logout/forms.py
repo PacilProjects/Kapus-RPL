@@ -10,9 +10,15 @@ class UserRegister(forms.ModelForm):
         ]
 
 class UserLogin(forms.ModelForm):
-
     class Meta:
         model = AuthUserKapus
         fields = [
             'username', 'password'
+        ]
+
+class UserChangeProfile(forms.ModelForm):
+    class Meta:
+        model = AuthUserKapus
+        fields = [
+            'password', 'lokasi', 'hp'
         ]

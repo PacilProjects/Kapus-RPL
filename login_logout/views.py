@@ -49,6 +49,32 @@ def loginUser(request):
 
     return render(request, 'login.html', response)
 
+def editUser(request):
+    username = None
+
+    if request.user.is_authenticated:
+        username = request.user.username
+    
+    userKapus = UserChangeProfile(request.POST or None)
+    if (userKapus.is_valid() and request.method == 'POST'):
+        password = userKapus.cleaned_data['password']
+        lokasi = userKapus.cleaned_data['lokasi']
+        hp = userKapus.cleaned_data['hp']
+
+        user = AuthUserKapus.objects.get(username=username)
+        user.password = password
+        user.lokasi = lokasi
+        user.hp = hp
+        user.save()
+
+        return redirect('success/')
+    
+    response = {
+        'userKapus': userKapus
+    }
+
+    return render(request, 'edit.html', response)
+
 def index(request):
     return render(request, 'index_login_logout.html')
 

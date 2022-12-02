@@ -36,7 +36,8 @@ def loginUser(request):
         if (user is not None and user.password == password):
             print('3')
             login(request, user)
-            return redirect('success/')
+            print(user.is_authenticated)
+            return redirect('loginSuccess/')
         else:
             print('4')
             print('Failed')
@@ -53,6 +54,9 @@ def index(request):
 
 def successScreen(request):
     return render(request, 'success.html')
+
+def loginSuccessScreen(request):
+    return render(request, 'loginSuccess.html')
 
 def failedScreen(request):
     return render(request, 'failed.html')

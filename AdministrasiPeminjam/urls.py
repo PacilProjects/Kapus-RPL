@@ -15,11 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from AdministrasiPeminjam.views import peminjaman_offline, json_peminjaman_offline
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('homepage.urls')),
-    path('administrasi-buku/', include('AdministrasiBuku.urls')),
-    path('administrasi-peminjam/', include('AdministrasiPeminjam.urls')),
+    path('offline/', peminjaman_offline, name='Index'),
+    path('json_peminjaman_offline/',json_peminjaman_offline, name='json_peminjaman_offline'),
 ]
-

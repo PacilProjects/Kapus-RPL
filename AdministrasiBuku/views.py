@@ -3,8 +3,9 @@ from django.core import serializers
 from AdministrasiBuku.forms import NewBook, NewPerpustakaan
 from AdministrasiBuku.models import Buku, Perpustakaan
 from django.http.response import HttpResponse
-
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
+
 
 def penambahan_buku(request):
 

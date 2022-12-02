@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapus - Mencari Buku</title>
+</head>
+<body>
+    <form action="results" method="POST">{% csrf_token %}
+        <label for="search_query">Cari buku:</label>
+        <input type="text" id="search_query" name="search_query" required>
+        <br>
+        <label for="search_type">Tipe pencarian:</label>
+        <select id="search_type" name="search_type" >
+            <option value="nama_buku">Nama Buku</option>
+            <option value="nama_penulis">Nama Penulis</option>
+            <option value="isbn">ISBN</option>
+        </select>
+        <br>
+        <input type="submit" value="Cari">
+    </form>
+</body>
+</html>

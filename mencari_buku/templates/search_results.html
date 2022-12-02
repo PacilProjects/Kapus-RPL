@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapus - Mencari Buku</title>
+</head>
+<body>
+    {% for buku in buku_list %}
+        <li>
+        {{ buku.nama_buku }}, {{ buku.nama_penulis }}, {{ buku.isbn }}, {{ buku.available }}
+        <form action="available" method="POST">{% csrf_token %}
+            <input type="hidden"  id="search_query" name="search_query" value={{ buku.nama_buku }}>
+            <input type="submit" value="Cek">
+        </form>
+        </li>
+    {% endfor %}
+</body>
+</html>

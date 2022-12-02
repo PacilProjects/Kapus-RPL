@@ -7,17 +7,40 @@
     <title>Registration</title>
 </head>
 <body>
-    <h1>Testing</h1>
-    {% load crispy_forms_tags %}
-    <form action="" method="POST" id="regform">
+    <form action="" method="POST">
         
         {% csrf_token %}
-        {{ userKapus.username|as_crispy_field }}
-        {{ userKapus.password|as_crispy_field }}
-        {{ userKapus.lokasi|as_crispy_field }}
-        {{ userKapus.email|as_crispy_field }}
-        {{ userKapus.hp|as_crispy_field }}
-        {{ userKapus.tipeUser|as_crispy_field }}
+
+        <div>
+            <label>Username</label>
+            <input type="text" placeholder="Masukkan username" name="username">
+            <br>
+        </div>
+        <div>
+            <label>Password</label>
+            <input type="text" placeholder="Masukkan password" name="password">
+            <br>
+        </div>
+        <div>
+            <label>Lokasi</label>
+            <input type="text" placeholder="Masukkan lokasi" name="lokasi">
+            <br>
+        </div>
+        <div>
+            <label>Email</label>
+            <input type="text" placeholder="Masukkan email" name="email">
+            <br>
+        </div>
+        <div>
+            <label>HP</label>
+            <input type="text" placeholder="Masukkan hp" name="hp">
+            <br>
+        </div>
+        <div>
+            <label>Tipe User</label>
+            <input type="text" placeholder="Masukkan Tipe User" name="tipeUser">
+            <br>
+        </div>
         
         <div>
             <a href="/accounts">

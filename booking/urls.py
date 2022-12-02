@@ -15,11 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from booking import views
+from booking.views import index, booking, borrow, borrow_status
 
 urlpatterns = [
-    path('', views.index, name='Index'),
-    path('book/', views.booking, name='book'),
-    path('borrow/', views.borrow, name='borrow'),
-    path('borrow-status/', views.borrow_status, name='borrow-status'),
+    path('', index, name='Index'),
+    path('book/', booking, name='book'),
+    path('borrow/', borrow, name='borrow'),
+    path('borrow-status/', borrow_status, name='borrow-status'),
 ]

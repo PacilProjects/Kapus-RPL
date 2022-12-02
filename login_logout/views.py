@@ -37,6 +37,7 @@ def loginUser(request):
             print('3')
             login(request, user)
             print(user.is_authenticated)
+            print(request.session)
             return redirect('loginSuccess/')
         else:
             print('4')

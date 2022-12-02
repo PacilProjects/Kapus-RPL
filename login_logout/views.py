@@ -1,4 +1,5 @@
 from .forms import *
+from .models import *
 from django.shortcuts import render, redirect
 from django.contrib import messages
 import psycopg2
@@ -8,7 +9,7 @@ connection = psycopg2.connect(
     host='localhost', 
     port='5432', 
     user='postgres', 
-    password='')
+    password='rlfdz3012')
 
 def dictfetchall(cursor): 
     "Returns all rows from a cursor as a dict" 
@@ -28,15 +29,15 @@ def checkUserNotExist(username):
 def index(request):
     return render(request, 'index_login_logout.html')
 
-def registerSuccess(request):
+def successScreen(request):
     return render(request, 'success.html')
 
-def registerFailed(request):
+def failedScreen(request):
     return render(request, 'failed.html')
 
 def registerUserKapus(request):
     if request.method == 'POST':
-        userKapus = userPenggunaPengelola(request.POST)
+        userKapus = UserRegisterForm(request.POST)
         if userKapus.is_valid():
             tipeUser = userKapus.cleaned_data['tipeUser']
             username = userKapus.cleaned_data['username']
@@ -47,7 +48,10 @@ def registerUserKapus(request):
 
             if checkUserNotExist(username) == 0:
                 with connection.cursor() as c:
-                    c.execute("INSERT INTO kapus.kapus_auth_user VALUES ('{}', '{}', '{}', '{}', '{}', '{}')".format(
+                    c.execute("""   INSERT INTO 
+                                    kapus.kapus_auth_user
+                                    VALUES 
+                                    ('{}', '{}', '{}', '{}', '{}', '{}')""".format(
                         tipeUser, username, password, lokasi, email, hp
                     ))
                 request.session['role'] = tipeUser
@@ -57,6 +61,28 @@ def registerUserKapus(request):
                 messages.error(request, 'User sudah terdaftar')
                 return redirect('failed/')
     
-    userKapus = userPenggunaPengelola()
+    userKapus = UserRegisterForm()
     response = {'userKapus': userKapus}
     return render(request, 'registration.html', response)
+
+def loginUserKapus(request):
+    if request.method == 'POST':
+        userKapusLogin = UserLoginForm(request.POST)
+        if userKapusLogin.is_valid():
+            username = userKapusLogin.cleaned_data['username']
+            password = userKapusLogin.cleaned_data['password']
+        
+            with connection.cursor() as c:
+                c.execute("""   SELECT  password
+                                FROM    kapus.kapus_auth_user 
+                                WHERE   username = '{}'""".format(username))
+                data = dictfetchall(c)
+
+                if data[0]['password'] == password:
+                    return redirect('success/')
+                else:
+                    return redirect('failed/')
+
+    userKapusLogin = UserLoginForm()
+    response = {'userKapusLogin': userKapusLogin}
+    return render(request, 'login.html', response)

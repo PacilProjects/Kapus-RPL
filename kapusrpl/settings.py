@@ -81,10 +81,10 @@ WSGI_APPLICATION = 'kapusrpl.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'kapus',
+        'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': 'vs*ukM2hO459Jqk4yE1&x',
-        'HOST':'34.105.84.61',
+        'PASSWORD': 'rlfdz3012',
+        'HOST':'localhost',
         'PORT':5432,
         'OPTIONS':{
             'options': '-c search_path=kapus'

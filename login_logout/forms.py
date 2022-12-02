@@ -1,8 +1,9 @@
 from django import forms
 from crispy_forms.helper import FormHelper
 from django.db import connection
+from .models import AuthUserKapus
 
-class userPenggunaPengelola(forms.Form):
+class UserRegisterForm(forms.Form):
     pilihanUser = (
         ('Pengguna', 'Pengguna'),
         ('Pengelola', 'Pengelola')
@@ -60,4 +61,20 @@ class userPenggunaPengelola(forms.Form):
                 'required': True
             }
         )
+    )
+
+class UserLoginForm(forms.Form):
+    username = forms.CharField(
+        label = 'Username',
+        widget = forms.widgets.TextInput(attrs={
+            'placeholder': 'Nama Lengkap',
+            'type': 'text',
+            'required': True
+        })
+    )
+
+    password = forms.CharField(
+        label = 'Password',
+        widget = forms.PasswordInput(),
+        required = True
     )

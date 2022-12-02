@@ -19,5 +19,7 @@ from booking import views
 
 urlpatterns = [
     path('', views.index, name='Index'),
-    path('book/', views.book, name='book'),
+    path('book/', views.booking, name='book'),
+    path('borrow/', views.borrow, name='borrow'),
+    path('borrow-status/', views.borrow_status, name='borrow-status'),
 ]

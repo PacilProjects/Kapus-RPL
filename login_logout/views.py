@@ -11,6 +11,18 @@ connection = psycopg2.connect(
     user='postgres', 
     password='rlfdz3012')
 
+def registerUser(request):
+    userKapus = UserRegister(request.POST or None)
+    if (userKapus.is_valid() and request.method == 'POST'):
+        userKapus.save()
+        return redirect('success/')
+    
+    response = {
+        'userKapus': userKapus
+    }
+
+    return render(request, 'registration1.html', response)
+
 def dictfetchall(cursor): 
     "Returns all rows from a cursor as a dict" 
     desc = cursor.description 
@@ -86,3 +98,14 @@ def loginUserKapus(request):
     userKapusLogin = UserLoginForm()
     response = {'userKapusLogin': userKapusLogin}
     return render(request, 'login.html', response)
+
+def updatePassword(request, username):
+    if request.method == 'POST':
+        userKapusUpdatePassword = UpdatePasswordForm(request.POST)
+        if userKapusUpdatePassword.is_valid():
+            passwordUpdate = userKapusUpdatePassword.cleaned_data['password']
+            
+            with connection.cursor() as c:
+                c.execute("""   UPDATE  kapus.kapus_auth_user
+                                SET     password = '{}'
+                                WHERE   username = '{}'""".format(passwordUpdate, username))

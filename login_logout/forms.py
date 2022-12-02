@@ -3,6 +3,20 @@ from crispy_forms.helper import FormHelper
 from django.db import connection
 from .models import AuthUserKapus
 
+class UserRegister(forms.Form):
+    password = forms.CharField(
+        label = 'Password',
+        widget = forms.PasswordInput(),
+        required = True
+    )
+
+    class Meta:
+        model = AuthUserKapus
+        fields = [
+            'username', 'password', 'lokasi',
+            'email', 'hp', 'tipeUser'
+        ]
+
 class UserRegisterForm(forms.Form):
     pilihanUser = (
         ('Pengguna', 'Pengguna'),
@@ -77,4 +91,11 @@ class UserLoginForm(forms.Form):
         label = 'Password',
         widget = forms.PasswordInput(),
         required = True
+    )
+
+class UpdatePasswordForm(forms.Form):
+    password = forms.CharField(
+        label = 'Password',
+        widget = forms.PasswordInput(),
+        required = True 
     )

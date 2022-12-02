@@ -27,6 +27,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['34.83.249.195','127.0.0.1']
 
+AUTH_USER_MODEL = 'login_logout.AuthUserKapus'
 
 # Application definition
 
@@ -71,6 +72,11 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = (
+        'django.contrib.auth.backends.ModelBackend',
+    )
+
 
 WSGI_APPLICATION = 'kapusrpl.wsgi.application'
 

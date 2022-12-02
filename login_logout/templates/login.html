@@ -4,20 +4,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration</title>
+    <title>Login</title>
 </head>
 <body>
-    <h1>Testing</h1>
-    {% load crispy_forms_tags %}
-    <form action="" method="POST" id="regform">
-        
+    <form action="" method="POST"> 
         {% csrf_token %}
-        {{ userKapusLogin.username|as_crispy_field }}
-        {{ userKapusLogin.password|as_crispy_field }}
-        
         <div>
-            <a href="/accounts">
-                <button type="submit" id="submitted"> Register </button>
+            <label>Username</label>
+            <input type="text" placeholder="Masukkan username" name="username" id="'id_username">
+            <br>
+        </div>
+        <div>
+            <label>Password</label>
+            <input type="password" placeholder="Masukkan password" name="password" id="id_password">
+            <br>
+        </div>
+        <div>
+            <a>
+                <button type="submit" id="submitted"> Login </button>
             </a>
         </div>
     </form>

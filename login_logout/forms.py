@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
-from .models import AuthUserKapus
+from login_logout.models import AuthUserKapus
+from AdministrasiBuku.models import Perpustakaan
 
 class UserRegister(forms.ModelForm):
     class Meta:
@@ -35,4 +36,9 @@ class UserChangeProfile(forms.Form):
         max_length=50, 
         initial='',
         required=False
+    )
+
+class PengelolaAddPerpustakaan(forms.Form):
+    listPerpustakaan = forms.MultipleChoiceField(
+        choices=tuple([tuple([perpus, perpus]) for perpus in Perpustakaan.objects.values_list('nama', flat=True)])
     )

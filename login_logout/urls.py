@@ -13,6 +13,7 @@ urlpatterns = [
     path('register/failed/', failedScreen),
 
     path('edit/', editUser),
+    path('editPerpustakaan/', addPerpustakaan),
 
     path('logout/', kapusUserLogout),
 ]

@@ -1,0 +1,7 @@
+<form action = "" method = "post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+</form>
+<br>
+<a href="http://127.0.0.1:8000/accounts/loginSuccess/" class="button">Back</a>

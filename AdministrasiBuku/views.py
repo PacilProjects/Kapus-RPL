@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import HttpResponseRedirect, render, redirect
 from django.core import serializers
 from AdministrasiBuku.forms import NewBook, NewPerpustakaan
 from AdministrasiBuku.models import Buku, Perpustakaan
@@ -8,21 +8,26 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 def penambahan_buku(request):
-
-    new_book = NewBook(request.POST or None)
-    if new_book.is_valid() and request.method == 'POST':
-        new_book.save()
-        return redirect('json_buku')
-    response = {'new_book': new_book}
-    return render(request, 'penambahan_buku.html', response)
+    if request.user.tipeUser == 'Pengelola':
+        new_book = NewBook(request.POST or None)
+        if new_book.is_valid() and request.method == 'POST':
+            new_book.save()
+            return redirect('json_buku')
+        response = {'new_book': new_book}
+        return render(request, 'penambahan_buku.html', response)
+    else:
+        return HttpResponseRedirect('/')
 
 def penambahan_perpus(request):
-    new_perpus = NewPerpustakaan(request.POST or None)
-    if new_perpus.is_valid() and request.method == 'POST':
-        new_perpus.save()
-        return redirect('json_perpus')
-    response = {'new_perpus': new_perpus}
-    return render(request, 'penambahan_perpustakaan.html', response)
+    if request.user.tipeUser == 'Pengelola':
+        new_perpus = NewPerpustakaan(request.POST or None)
+        if new_perpus.is_valid() and request.method == 'POST':
+            new_perpus.save()
+            return redirect('json_perpus')
+        response = {'new_perpus': new_perpus}
+        return render(request, 'penambahan_perpustakaan.html', response)
+    else:
+        return HttpResponseRedirect('/')
 
 def show_perpustakaan(request):
     perpus = Perpustakaan.objects.only('nama')

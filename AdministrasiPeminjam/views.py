@@ -21,6 +21,8 @@ def peminjaman_offline(request):
     response = {'peminjaman_buku': peminjaman_buku}
     return render(request, 'penambahan_buku.html', response)
 
+
+
 def json_peminjaman_offline(request):
     data = serializers.serialize('json', PeminjamanOffline.objects.all())
     return HttpResponse(data, content_type="application/json")

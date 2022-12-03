@@ -24,6 +24,13 @@ def penambahan_perpus(request):
     response = {'new_perpus': new_perpus}
     return render(request, 'penambahan_perpustakaan.html', response)
 
+def show_perpustakaan(request):
+    perpus = Perpustakaan.objects.only('nama')
+    name = []
+    for i in perpus:
+        name.append(i.nama)
+    return name
+
 def json_buku(request):
     data = serializers.serialize('json', Buku.objects.all())
     return HttpResponse(data, content_type="application/json")

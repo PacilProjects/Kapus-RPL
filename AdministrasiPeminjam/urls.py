@@ -20,7 +20,7 @@ from AdministrasiPeminjam.views import peminjaman_offline, json_peminjaman_offli
 urlpatterns = [
     path('offline/', peminjaman_offline, name='Index'),
     path('dashboard/', dashboard, name='dashboard'),
-    path('dashboard/status/<str:username>', update_status, name='dashboard'),
-    path('dashboard/request/<str:username>', ubah_request, name='request'),
+    path('dashboard/status/<str:id_booking>', update_status, name='dashboard'),
+    path('dashboard/request/<str:id_booking>', ubah_request, name='request'),
     path('json_peminjaman_offline/',json_peminjaman_offline, name='json_peminjaman_offline'),
 ]

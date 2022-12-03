@@ -11,7 +11,9 @@
         <form action="" method="post">
             {% csrf_token %}
             <label for="">Username: </label><br>
-            <input type="text" value="{{request.username_id}}" disabled name="username_id"><br>
+            <input type="text" value="{{request.username}}" disabled name="username"><br>
+            <label for="">Book: </label><br>
+            <input type="text" value="{{request.book}}" disabled name="username"><br>
             <label for="">Has been Accepted? </label><br>
             <input type="radio" name="option2" value="True">
             <label for="option2">Yes</label><br>

@@ -4,7 +4,6 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 
-# Works
 def kapusUserRegister(request):
     userKapus = UserRegister(request.POST or None)
     if (userKapus.is_valid() and request.method == 'POST'):

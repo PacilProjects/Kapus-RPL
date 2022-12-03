@@ -1,29 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-</head>
-<body>
-    <form action="" method="POST"> 
-        {% csrf_token %}
-        <div>
-            <label>Username</label>
-            <input type="text" placeholder="Masukkan username" name="username" id="'id_username">
-            <br>
-        </div>
-        <div>
-            <label>Password</label>
-            <input type="password" placeholder="Masukkan password" name="password" id="id_password">
-            <br>
-        </div>
-        <div>
-            <a>
-                <button type="submit" id="submitted"> Login </button>
-            </a>
-        </div>
-    </form>
-</body>
-</html>
+<form action = "" method = "post">
+    {% csrf_token %}
+    {{form }}
+    <input type="submit" value="Submit">
+</form>
+<a href="http://127.0.0.1:8000/accounts/register/" class="button">Register Page</a>
+<br>
+<a href="http://127.0.0.1:8000/accounts/" class="button">Back to Home Page</a>

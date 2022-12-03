@@ -3,9 +3,16 @@ from .views import *
 
 urlpatterns = [
     path('', index),
-    path('register/', registerUser),
-    path('login/', loginUser),
+
+    path('login/', kapusUserLogin),
     path('login/loginSuccess/', loginSuccessScreen),
+    path('login/loginFailed/', loginFailedScreen),
+
+    path('register/', kapusUserRegister),
     path('register/success/', successScreen),
-    path('register/failed/', failedScreen)
+    path('register/failed/', failedScreen),
+
+    path('edit/', editUser),
+
+    path('logout/', kapusUserLogout),
 ]

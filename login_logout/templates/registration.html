@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+</head>
+<body>
+    <form action="" method="POST">
+        
+        {% csrf_token %}
+
+        <div>
+            <label>Username</label>
+            <input type="text" placeholder="Masukkan username" name="username">
+            <br>
+        </div>
+        <div>
+            <label>Password</label>
+            <input type="password" placeholder="Masukkan password" name="password">
+            <br>
+        </div>
+        <div>
+            <label>Lokasi</label>
+            <input type="text" placeholder="Masukkan lokasi" name="lokasi">
+            <br>
+        </div>
+        <div>
+            <label>Email</label>
+            <input type="text" placeholder="Masukkan email" name="email">
+            <br>
+        </div>
+        <div>
+            <label>HP</label>
+            <input type="text" placeholder="Masukkan hp" name="hp">
+            <br>
+        </div>
+        <div>
+            <label>Tipe User</label>
+            <input type="radio" id="radio-pengguna" name="tipeUser" value="Pengguna">
+            <label for="radio-pengguna">Pengguna</label>
+            <input type="radio" id="radio-pengelola" name="tipeUser" value="Pengelola">
+            <label for="radio-pengelola">Pengelola</label>
+            <br>
+        </div>
+        
+        <div>
+            <a>
+                <button type="submit" id="submitted"> Register </button>
+            </a>
+        </div>
+    </form>
+    <a href="http://127.0.0.1:8000/accounts/login/" class="button">Login Page</a>
+    <br>
+    <a href="http://127.0.0.1:8000/accounts/" class="button">Back to Home Page</a>
+</body>
+</html>

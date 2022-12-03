@@ -23,10 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-+l9d&gu8rjab*e0!z%s7zf9!vn^p^fwn05oup14lo$xmc4j2zd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['34.83.249.195','127.0.0.1']
+ALLOWED_HOSTS = ['34.83.249.195','127.0.0.1', 'localhost']
 
+AUTH_USER_MODEL = 'login_logout.AuthUserKapus'
 
 # Application definition
 
@@ -39,6 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'homepage',
     'mencari_buku',
+    'login_logout',
+    'crispy_forms',
+    'booking',
+    'AdministrasiBuku',
+    'AdministrasiPeminjam',
 ]
 
 MIDDLEWARE = [
@@ -71,6 +77,11 @@ TEMPLATES = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = (
+        'django.contrib.auth.backends.ModelBackend',
+    )
+
+
 WSGI_APPLICATION = 'kapusrpl.wsgi.application'
 
 
@@ -79,16 +90,28 @@ WSGI_APPLICATION = 'kapusrpl.wsgi.application'
 
 DATABASES = {
     'default': {
+
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'kapus',
+        'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': 'vs*ukM2hO459Jqk4yE1&x',
-        'HOST':'34.105.84.61',
-        'PORT':5432,
-        'OPTIONS':{
+        'PASSWORD': 'Fikriazain23!',
+        'HOST': 'localhost',
+        'PORT': '5432',
+        'OPTIONS': {
             'options': '-c search_path=kapus'
         }
-    },
+    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'kapus',
+    #     'USER': 'postgres',
+    #     'PASSWORD': 'vs*ukM2hO459Jqk4yE1&x',
+    #     'HOST':'34.105.84.61',
+    #     'PORT':5432,
+    #     'OPTIONS':{
+    #         'options': '-c search_path=kapus'
+    #     }
+    # },
 
 }
 
@@ -133,3 +156,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+

@@ -1,5 +1,4 @@
 """kapusrpl URL Configuration
-
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.1/topics/http/urls/
 Examples:
@@ -15,12 +14,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from AdministrasiPeminjam.views import peminjaman_offline, json_peminjaman_offline, dashboard, update_status, ubah_request
+from booking.views import index, booking, borrow, borrow_status
 
 urlpatterns = [
-    path('offline/', peminjaman_offline, name='Index'),
-    path('dashboard/', dashboard, name='dashboard'),
-    path('dashboard/status/<str:username>', update_status, name='dashboard'),
-    path('dashboard/request/<str:username>', ubah_request, name='request'),
-    path('json_peminjaman_offline/',json_peminjaman_offline, name='json_peminjaman_offline'),
+    path('', index, name='Index'),
+    path('book/', booking, name='book'),
+    path('borrow/', borrow, name='borrow'),
+    path('borrow-status/', borrow_status, name='borrow-status'),
 ]

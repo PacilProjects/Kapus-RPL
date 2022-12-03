@@ -29,7 +29,6 @@ def show_perpustakaan(request):
     name = []
     for i in perpus:
         name.append(i.nama)
-    print(name)
     return name
 
 def json_buku(request):

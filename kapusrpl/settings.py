@@ -23,10 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-+l9d&gu8rjab*e0!z%s7zf9!vn^p^fwn05oup14lo$xmc4j2zd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['34.83.249.195','127.0.0.1']
+ALLOWED_HOSTS = ['34.83.249.195','127.0.0.1', 'localhost']
 
+AUTH_USER_MODEL = 'login_logout.AuthUserKapus'
 
 # Application definition
 
@@ -38,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'homepage',
+    'login_logout',
+    'crispy_forms',
+    'booking',
     'AdministrasiBuku',
     'AdministrasiPeminjam',
 ]
@@ -71,6 +75,11 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = (
+        'django.contrib.auth.backends.ModelBackend',
+    )
+
 
 WSGI_APPLICATION = 'kapusrpl.wsgi.application'
 
@@ -146,3 +155,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+

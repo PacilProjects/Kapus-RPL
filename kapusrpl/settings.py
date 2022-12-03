@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'homepage',
+    'mencari_buku',
     'login_logout',
     'crispy_forms',
     'booking',

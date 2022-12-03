@@ -60,15 +60,6 @@ def editUser(request):
         hp = userKapus.cleaned_data['hp']
 
         user = AuthUserKapus.objects.get(username=username)
-        print(password)
-        print(checkLength(password))
-
-        print(lokasi)
-        print(checkLength(lokasi))
-
-        print(hp)
-        print(checkLength(hp))
-
         if checkLength(password): user.password = password
         if checkLength(lokasi): user.lokasi = lokasi
         if checkLength(hp): user.hp = hp

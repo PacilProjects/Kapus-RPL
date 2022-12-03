@@ -16,6 +16,6 @@ class SaranPenambahanRating(models.Model):
         return str(self.pk)
    
 class Perpustakaan(models.Model):
-    nama_perpus = models.CharField(max_length=20)
+    nama_perpus = models.CharField(max_length=19)
 
 

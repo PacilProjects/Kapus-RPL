@@ -15,15 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
-from login_logout.views import *
+from AdministrasiPeminjam.views import peminjaman_offline, json_peminjaman_offline, dashboard, update_status, ubah_request
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('homepage.urls')),
-    path('accounts/', include('login_logout.urls')),
-    path('booking/', include('booking.urls')),
-    path('administrasi-buku/', include('AdministrasiBuku.urls')),
-    path('administrasi-peminjam/', include('AdministrasiPeminjam.urls')),
+    path('offline/', peminjaman_offline, name='Index'),
+    path('dashboard/', dashboard, name='dashboard'),
+    path('dashboard/status/<str:username>', update_status, name='dashboard'),
+    path('dashboard/request/<str:username>', ubah_request, name='request'),
+    path('json_peminjaman_offline/',json_peminjaman_offline, name='json_peminjaman_offline'),
 ]
-

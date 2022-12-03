@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from AdministrasiBuku.models import Buku
 from AdministrasiBuku.views import show_perpustakaan
 from booking.models import RequestBooking, BookBorrow
+from booking.views import borrow
 from login_logout.models import AuthUserKapus
 # Create your views here.
 
@@ -46,9 +47,8 @@ def ubah_request(request, username):
         user = RequestBooking.objects.get(username=username)
         if data['option2']== "True":
             user.is_accepted = True
-            auth_user = AuthUserKapus.objects.get(username= str(user.username_id))
-            new_book = BookBorrow(username=auth_user, timestamp_accepted = datetime.now(), status='Menunggu')
-            new_book.save()
+            auth_user = AuthUserKapus.objects.get(username= str(user.username))
+            borrow(auth_user, user.book, user.perpustakaan)
         else:
             user.is_accepted = False
         user.is_reviewed = True

@@ -6,38 +6,27 @@ from django.shortcuts import redirect
 from django.core import serializers
 from .models import RequestBooking, BookBorrow
 
-# Create your views here.
-@csrf_exempt
 def index(request):
     if request.method == "GET":
-        request_model = RequestBooking.objects.all().filter(username=request.user).values()[::1]
+        request_model = RequestBooking.objects.all().filter(username=request.user.username).values()[::1]
         return JsonResponse(request_model, safe=False)
 
-@csrf_exempt
 def booking(request):
     if request.method == "POST":
         book_name = request.POST["buku"]
-        print(book_name)
-        user = request.user
-        book = RequestBooking(username = user, book = book_name)
-        book.save()
-        return redirect("Index")
-    else:
-        return render(request, 'book.html', {})
-    
-@csrf_exempt
-def borrow(request):
-    if request.method == "POST":
-        print(request.user)
+        library = request.POST["perpustakaan"]
         user = request.user.username
-        borrow = BookBorrow(username = user)
-        borrow.save()
-        return HttpResponse(status=200)
+        book = RequestBooking(username = user, book = book_name, perpustakaan = library)
+        book.save()
+        return redirect("listbooking")
     else:
-        return redirect("book")
+        return render(request, "book.html", {})
+    
+def borrow(user, book_name, library):
+    borrow = BookBorrow(username = user, perpustakaan = library, book = book_name)
+    borrow.save()
 
-@csrf_exempt
 def borrow_status(request):
     if request.method == "GET":
-        borrow_model = BookBorrow.objects.all().values()[::1]
+        borrow_model = BookBorrow.objects.all().filter(username=request.user.username).values()[::1]
         return JsonResponse(borrow_model, safe=False)

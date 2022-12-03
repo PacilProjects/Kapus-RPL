@@ -8,12 +8,23 @@
 </head>
 <body>
     <h1>Login Success</h1>
+    <p>Username:</p>
     {{ user.username }}
     <br>
+    <p>Nomor HP:</p>
     {{ user.hp }}
     <br>
+    <p>Lokasi:</p>
+    {{ user.lokasi }}
+    <br>
+    <p>Email:</p>
     {{ user.email }}
     <br>
+    <p>Tipe User:</p>
     {{ user.tipeUser }}
+    <br>
+    <a href="http://127.0.0.1:8000/accounts/logout/" class="button"> Logout </a>
+    <br>
+    <a href="http://127.0.0.1:8000/accounts/edit/" class="button"> Edit Profile </a>
 </body>
 </html>

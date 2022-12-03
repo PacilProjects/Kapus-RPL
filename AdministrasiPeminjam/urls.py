@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from AdministrasiPeminjam.views import peminjaman_offline, json_peminjaman_offline
+from AdministrasiPeminjam.views import peminjaman_offline, json_peminjaman_offline, dashboard
 
 urlpatterns = [
     path('offline/', peminjaman_offline, name='Index'),
+    path('dashboard/', dashboard, name='dashboard'),
     path('json_peminjaman_offline/',json_peminjaman_offline, name='json_peminjaman_offline'),
 ]

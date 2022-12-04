@@ -1,9 +1,9 @@
 from django.urls import path
-from .views import add_rating_suggestion, json, add_perpus
+from .views import add_rating_suggestion, json, check_library, success
 
 urlpatterns = [
-    path('add/', add_rating_suggestion, name='add_rating_suggestion'),
-    # path('peminjam/', add_peminjam, name='add_peminjam'),
-    path('perpustakaan/', add_perpus, name='add_perpus'),
+    path('add/<str:nama_perpus>', add_rating_suggestion, name='add_rating_suggestion'),
+    path('check-library/', check_library, name='check_library'),
+    path('add/success/', success, name='success'),
     path('json/', json, name='json')
 ]

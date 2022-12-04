@@ -23,8 +23,17 @@
     <p>Tipe User:</p>
     {{ user.tipeUser }}
     <br>
+    {% if user.tipeUser == 'Pengelola' %}
+    <p>Perpustakaan:</p>
+    {{ user.perpustakaanKerjaChar}}
+    <br>
+    {% endif %}
     <a href="http://127.0.0.1:8000/accounts/logout/" class="button"> Logout </a>
     <br>
     <a href="http://127.0.0.1:8000/accounts/edit/" class="button"> Edit Profile </a>
+    <br>
+    {% if user.tipeUser == 'Pengelola' %}
+    <a href="http://127.0.0.1:8000/accounts/editPerpustakaan/" class="button"> Edit Perpustakaan </a>
+    {% endif %}
 </body>
 </html>

@@ -1,17 +1,10 @@
 from django import forms
-from RatingPerpustakaan.models import SaranPenambahanRating, Perpustakaan
+from RatingPerpustakaan.models import Rating
 
-class PenambahanRatingForm(forms.ModelForm):
+class RatingForm(forms.ModelForm):
 
     class Meta :
-        model = SaranPenambahanRating
-        fields = ['nama_perpus',
+        model = Rating
+        fields = [
         'score'
-        ]
-
-class PerpustakaanForm(forms.ModelForm):
-
-    class Meta :
-        model = Perpustakaan
-        fields = ['nama_perpus'
         ]

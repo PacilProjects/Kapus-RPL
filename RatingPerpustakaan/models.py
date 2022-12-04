@@ -1,10 +1,11 @@
 from django.core import validators
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+from AdministrasiBuku.models import Perpustakaan
 
 
-class SaranPenambahanRating(models.Model):
-    nama_perpus = models.CharField(max_length=50)
+class Rating(models.Model):
+    nama_perpus_temp = models.CharField(max_length=50, null=True)
     score = models.IntegerField(default=0,
         validators =[
             MaxValueValidator(5),
@@ -12,10 +13,11 @@ class SaranPenambahanRating(models.Model):
         ]
     )
     
-    def __str__(self):
-        return str(self.pk)
-   
-class Perpustakaan(models.Model):
-    nama_perpus = models.CharField(max_length=19)
+class CountRating(models.Model):
+    nama_perpus_banget = models.CharField(Perpustakaan.objects.all().values_list('nama'), max_length=50)
+    total_score = models.IntegerField()
+    count_score = models.IntegerField()
+    final_score = models.DecimalField(max_digits=500, decimal_places=2)
+
 
 

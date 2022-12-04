@@ -5,9 +5,13 @@ from SaranPenambahanBuku.forms import PenambahanBukuForm
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
 from django.http.response import HttpResponse
+# from booking.models import BookBorrow
    
 
 def add_book_suggestion(request):
+    # print(request.user)
+    # var_perpus = list(BookBorrow.objects.all().filter(username = request.user.username).values_list('perpustakaan', flat=True))
+    # print(var_perpus)
     add_book_suggestion = PenambahanBukuForm(request.POST or None)
     if (add_book_suggestion.is_valid() and request.method == 'POST'):
         add_book_suggestion.save()

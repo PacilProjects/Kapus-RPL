@@ -57,24 +57,21 @@
     }
 </style>
 <h1>
-    Add Book
+    Success
 </h1>
 <body style="background-color: rgb(0, 48, 73);">
     <form action="" method="POST"> {% csrf_token %}
         <div class="styling">
-            <div class="inputDiv">
-                <label>Nama Peminjam</label>
-                <input type="text" placeholder="Enter book's name" name="nama_peminjam"><br>
-            </div>
-            <div class="inputDiv">
-                <label>ID Perpus</label>
-                <input type="text" placeholder="Enter book's name" name="id_perpus"><br>
-            </div>
         </div>
             <div>
-                <button class="button" type ="submit" value="Submit">
-                Submit
-                </button>
+                <button class="button" type="button" onclick="back()">
+                    Back
+                  <script>
+                    function back(){
+                      window.location.href="http://127.0.0.1:8000/saran-penambahan-buku/add/";
+                    }
+                  </script>
+                  </button>
                 </div>
 
     </form>

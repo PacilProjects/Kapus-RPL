@@ -1,10 +1,10 @@
 from .forms import *
 from .models import *
+from AdministrasiBuku.models import Perpustakaan
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 
-# Works
 def kapusUserRegister(request):
     userKapus = UserRegister(request.POST or None)
     if (userKapus.is_valid() and request.method == 'POST'):
@@ -35,7 +35,7 @@ def kapusUserLogin(request):
                 login(request, user)
                 return redirect('http://127.0.0.1:8000/accounts/login/loginSuccess/')
             else:
-                return redirect('http://127.0.0.1:8000/accounts/login/loginSuccess/')
+                return redirect('http://127.0.0.1:8000/accounts/login/loginFailed/')
         else:
             return redirect('http://127.0.0.1:8000/accounts/login/loginFailed/')
             
@@ -75,6 +75,27 @@ def editUser(request):
 
 def checkLength(parameter):
     return len(parameter) > 0
+
+def addPerpustakaan(request):
+    username = None
+
+    if request.user.is_authenticated:
+        username = request.user.username
+
+    addPerpus = PengelolaAddPerpustakaan(request.POST or None)
+    if (request.method == 'POST' and addPerpus.is_valid()):
+        user = AuthUserKapus.objects.get(username=username)
+        user.perpustakaanKerjaChar = addPerpus.cleaned_data['listPerpustakaan'][0]
+        user.perpustakaanKerjaModel = Perpustakaan.objects.get(nama=addPerpus.cleaned_data['listPerpustakaan'][0])
+        user.save()
+
+        return redirect('http://127.0.0.1:8000/accounts/login/loginSuccess/')
+
+    context = {
+        'form': addPerpus
+    }
+    
+    return render(request, 'editPerpustakaan.html', context)
 
 def index(request):
     return render(request, 'index_login_logout.html')

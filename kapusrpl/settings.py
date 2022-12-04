@@ -103,18 +103,6 @@ DATABASES = {
             'options': '-c search_path=kapus'
         }
     }
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': 'kapus',
-    #     'USER': 'postgres',
-    #     'PASSWORD': 'vs*ukM2hO459Jqk4yE1&x',
-    #     'HOST':'34.105.84.61',
-    #     'PORT':5432,
-    #     'OPTIONS':{
-    #         'options': '-c search_path=kapus'
-    #     }
-    # },
-
 }
 
 

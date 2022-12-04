@@ -16,8 +16,7 @@
               <form class ="rate-form" action ="" method="POST" id="rate_section">
                 {% csrf_token %}
                 <div class="form-group">
-                  <label for="name">Name</label>
-                  <input type="text" name="nama_perpus" id="nama_perpus">
+                  <label for="name">{{name}}</label>
                 </div>
                 <div class="form-stars">
                   <label for="Rating">Rating</label>

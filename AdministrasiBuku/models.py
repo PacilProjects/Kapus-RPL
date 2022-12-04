@@ -19,4 +19,7 @@ class Perpustakaan(models.Model):
     class Meta:
         db_table = 'perpustakaan'
 
+    def __unicode__(self):
+        return self.name
+
 

@@ -17,7 +17,7 @@ from django.contrib.sessions.models import Session
 
 @csrf_exempt
 def peminjaman_offline(request):
-    if request.user.tipeUser == 'Pengelola':#Nanti ganti jadi request.POST
+    if request.user.is_authenticated and request.user.tipeUser == 'Pengelola':
         if request.method == 'POST':
             data = request.POST
             isbn = Buku.objects.only('isbn').get(nama_buku=data['buku'])
@@ -42,7 +42,7 @@ def json_peminjaman_offline(request):
     return HttpResponse(data, content_type="application/json")
 
 def dashboard(request):
-    if request.user.tipeUser == 'Pengelola':
+    if request.user.is_authenticated and request.user.tipeUser == 'Pengelola':
         book_borrow = BookBorrow.objects.all().filter(perpustakaan=request.user.perpustakaanKerjaModel_id)
         request_booking = RequestBooking.objects.all().filter(perpustakaan=request.user.perpustakaanKerjaModel_id)
         response = {'perpus': show_perpustakaan(request), 'book_borrow': book_borrow, 'request_booking': request_booking}
@@ -52,7 +52,7 @@ def dashboard(request):
 
 
 def ubah_request(request, id_booking):
-    if request.user.tipeUser == 'Pengelola':
+    if request.user.is_authenticated and request.user.tipeUser == 'Pengelola':
         request_booking = RequestBooking.objects.get(id_booking=id_booking)
         response = {"request": request_booking}
         print(datetime.now())
@@ -73,7 +73,7 @@ def ubah_request(request, id_booking):
         return HttpResponseRedirect('/')
 
 def update_status(request, username):
-    if request.user.tipeUser == 'Pengelola':
+    if request.user.is_authenticated and request.user.tipeUser == 'Pengelola':
         book_borrow = BookBorrow.objects.get(username=username)
         response = {"book": book_borrow}
         if request.method == "POST":

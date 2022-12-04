@@ -7,7 +7,8 @@ from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 def penambahan_stok(request):
-    if request.user.tipeUser == 'Pengelola':
+    print(request.user)
+    if request.user.is_authenticated and request.user.tipeUser == 'Pengelola':
         if request.method == 'POST':
             data = request.POST
             buku = Buku.objects.get(nama_buku=data['buku'])
@@ -30,7 +31,7 @@ def penambahan_stok(request):
 
 
 def penambahan_buku(request):
-    if request.user.tipeUser == 'Pengelola':
+    if request.user.is_authenticated and request.user.tipeUser == 'Pengelola':
         if request.method == 'POST':
             data = request.POST
             new_book = Buku(nama_buku=data['nama_buku'], isbn=data['isbn'], penulis=data['penulis'], penerbit=data['penerbit'])
@@ -40,7 +41,7 @@ def penambahan_buku(request):
         return HttpResponseRedirect('/')
 
 def penambahan_perpus(request):
-    if request.user.tipeUser == 'Pengelola':
+    if request.user.is_authenticated and request.user.tipeUser == 'Pengelola':
         new_perpus = NewPerpustakaan(request.POST or None)
         if new_perpus.is_valid() and request.method == 'POST':
             new_perpus.save()

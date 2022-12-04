@@ -1,6 +1,7 @@
 from datetime import datetime
 import json
 from django.shortcuts import redirect, render
+from AdministrasiBuku.models import Buku, Perpustakaan, PerpusBuku
 from AdministrasiPeminjam.models import PeminjamanOffline
 from AdministrasiPeminjam.forms import PeminjamanOfflineForm
 from django.core import serializers
@@ -11,20 +12,29 @@ from AdministrasiBuku.views import show_perpustakaan
 from booking.models import RequestBooking, BookBorrow
 from booking.views import borrow
 from login_logout.models import AuthUserKapus
+from django.contrib.sessions.models import Session
 # Create your views here.
 
 @csrf_exempt
 def peminjaman_offline(request):
-    peminjaman_buku = PeminjamanOfflineForm(json.loads(request.body) or None) #Nanti ganti jadi request.POST
-    print(json.loads(request.body)['nama_buku'])
-    if peminjaman_buku.is_valid() and request.method == 'POST':
-        peminjaman_buku.save()
-        buku = Buku.objects.get(isbn=json.loads(request.body)['nama_buku'])
-        buku.banyak = buku.banyak - 1
-        buku.save()
-        return redirect('json_buku')
-    response = {'peminjaman_buku': peminjaman_buku}
-    return render(request, 'penambahan_buku.html', response)
+    if request.user.is_authenticated and request.user.tipeUser == 'Pengelola':
+        if request.method == 'POST':
+            data = request.POST
+            isbn = Buku.objects.only('isbn').get(nama_buku=data['buku'])
+            target = borrow(user=data['username'], book_name=isbn.isbn, library=request.user.perpustakaanKerjaModel_id)
+            target.status = 'Peminjaman Offline'
+            target.save()
+            kuantitas = PerpusBuku.objects.get(nama_perpus_id=request.user.perpustakaanKerjaModel_id, isbn_id=isbn.isbn)
+            kuantitas.kuantitas = kuantitas.kuantitas - 1
+            kuantitas.save()
+            return HttpResponseRedirect('/')
+
+        buku = PerpusBuku.objects.all().filter(nama_perpus_id=request.user.perpustakaanKerjaModel_id).values_list('isbn_id', flat=True)
+        target = Buku.objects.all().filter(isbn__in=buku).values_list('nama_buku', flat=True)
+        response = {'peminjaman_buku': target, 'perpus': request.user.perpustakaanKerjaModel_id}
+        return render(request, 'peminjaman_offline.html', response)
+    else:
+        return HttpResponseRedirect('/')
 
 def json_peminjaman_offline(request):
     data = serializers.serialize('json', PeminjamanOffline.objects.all())
@@ -32,38 +42,50 @@ def json_peminjaman_offline(request):
     return HttpResponse(data, content_type="application/json")
 
 def dashboard(request):
-    book_borrow = BookBorrow.objects.all()
-    request_booking = RequestBooking.objects.all()
-    response = {'perpus': show_perpustakaan(request), 'book_borrow': book_borrow, 'request_booking': request_booking}
-    return render(request, 'dashboard.html', response)
+    if request.user.is_authenticated and request.user.tipeUser == 'Pengelola':
+        book_borrow = BookBorrow.objects.all().filter(perpustakaan=request.user.perpustakaanKerjaModel_id)
+        request_booking = RequestBooking.objects.all().filter(perpustakaan=request.user.perpustakaanKerjaModel_id)
+        response = {'perpus': show_perpustakaan(request), 'book_borrow': book_borrow, 'request_booking': request_booking}
+        return render(request, 'dashboard.html', response)
+    else:
+        return HttpResponseRedirect('/')
 
 
-def ubah_request(request, username):
-    request_booking = RequestBooking.objects.get(username=username)
-    response = {"request": request_booking}
-    print(datetime.now())
-    if request.method == "POST":
-        data = request.POST
-        user = RequestBooking.objects.get(username=username)
-        if data['option2']== "True":
-            user.is_accepted = True
-            auth_user = AuthUserKapus.objects.get(username= str(user.username))
-            borrow(auth_user, user.book, user.perpustakaan)
-        else:
-            user.is_accepted = False
-        user.is_reviewed = True
-        user.save()
-        return HttpResponseRedirect('../')
-    return render(request, 'ubah_request.html', response)
+def ubah_request(request, id_booking):
+    if request.user.is_authenticated and request.user.tipeUser == 'Pengelola':
+        request_booking = RequestBooking.objects.get(id_booking=id_booking)
+        response = {"request": request_booking}
+        print(datetime.now())
+        if request.method == "POST":
+            data = request.POST
+            user = RequestBooking.objects.get(id_booking=id_booking)
+            if data['option2']== "True":
+                user.is_accepted = True
+                auth_user = AuthUserKapus.objects.get(username= user.username)
+                borrow(auth_user, user.book, user.perpustakaan)
+            else:
+                user.is_accepted = False
+            user.is_reviewed = True
+            user.save()
+            return HttpResponseRedirect('../')
+        return render(request, 'ubah_request.html', response)
+    else:
+        return HttpResponseRedirect('/')
 
+def update_status(request, id_borrow):
+    if request.user.is_authenticated and request.user.tipeUser == 'Pengelola':
+        book_borrow = BookBorrow.objects.get(id_borrow=id_borrow)
+        response = {"book": book_borrow}
+        if request.method == "POST":
+            data = request.POST
+            book_borrow.status = data['status']
+            book_borrow.save()
 
-def update_status(request, username):
-    book_borrow = BookBorrow.objects.get(username=username)
-    response = {"book": book_borrow}
-    if request.method == "POST":
-        data = request.POST
-        user = BookBorrow.objects.get(username=username)
-        user.status = data['status']
-        user.save()
-        return HttpResponseRedirect('../')
-    return render(request, 'ubah_status.html', response)
+            target_buku = PerpusBuku.objects.get(isbn_id=book_borrow.book, nama_perpus_id=book_borrow.perpustakaan)
+            target_buku.kuantitas = target_buku.kuantitas - 1
+            target_buku.save()
+
+            return HttpResponseRedirect('../')
+        return render(request, 'ubah_status.html', response)
+    else:
+        return HttpResponseRedirect('/')

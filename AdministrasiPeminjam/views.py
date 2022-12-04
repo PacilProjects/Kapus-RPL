@@ -72,15 +72,19 @@ def ubah_request(request, id_booking):
     else:
         return HttpResponseRedirect('/')
 
-def update_status(request, username):
+def update_status(request, id_borrow):
     if request.user.is_authenticated and request.user.tipeUser == 'Pengelola':
-        book_borrow = BookBorrow.objects.get(username=username)
+        book_borrow = BookBorrow.objects.get(id_borrow=id_borrow)
         response = {"book": book_borrow}
         if request.method == "POST":
             data = request.POST
-            user = BookBorrow.objects.get(username=username)
-            user.status = data['status']
-            user.save()
+            book_borrow.status = data['status']
+            book_borrow.save()
+
+            target_buku = PerpusBuku.objects.get(isbn_id=book_borrow.book, nama_perpus_id=book_borrow.perpustakaan)
+            target_buku.kuantitas = target_buku.kuantitas - 1
+            target_buku.save()
+
             return HttpResponseRedirect('../')
         return render(request, 'ubah_status.html', response)
     else:

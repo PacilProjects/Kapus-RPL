@@ -3,9 +3,9 @@ name: Django Tests
 on: ['pull_request', 'push']
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
-    step: 
+    steps: 
       - uses: actions/checkout@v2
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
@@ -18,7 +18,7 @@ jobs:
       - name: Lint with Flake8
         run:
           pip install flake8
-
+          flake8
       - name: Coverage Report
         run:
           pip install coverage

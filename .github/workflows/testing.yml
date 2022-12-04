@@ -3,7 +3,7 @@ name: Django Tests
 on: ['pull_request', 'push']
 
 jobs:
-  Unit Test:
+  Unit_Test:
 
     runs-on: ubuntu-latest
     strategy:

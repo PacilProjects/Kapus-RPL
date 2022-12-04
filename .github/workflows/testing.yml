@@ -12,7 +12,8 @@ jobs:
         python-version: [3.9]
         include:
           - db: postgres
-            db_port: 5432
+            db_user: runner
+            db_password: ''
 
     services:
       postgres:
@@ -39,15 +40,26 @@ jobs:
           python -m pip install --upgrade pip
           pip install --upgrade setuptools
           pip install -r requirements.txt
+
+
+      - name: Start PostgreSQL
+            if: matrix.db == 'postgres'
+            run: |
+              sudo systemctl start postgresql.service
+              sudo -u postgres createuser -s runner
+
       - name: Run Pytest
         env:
           DB: ${{ matrix.db }}
-          DB_HOST: 127.0.0.1
-          DB_PORT: ${{ matrix.db_port }}
-          DB_PASSWORD: Fikriazain23
+          DB_USER: ${{ matrix.db_user }}
+          DB_PASSWORD: ${{ matrix.db_password }}
         run: 
           pip install pytest
           pytest
       - name: Django Testing
+        env:
+          DB: ${{ matrix.db }}
+          DB_USER: ${{ matrix.db_user }}
+          DB_PASSWORD: ${{ matrix.db_password }}
         run: 
           python3 manage.py test

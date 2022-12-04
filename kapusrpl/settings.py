@@ -94,12 +94,16 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': 'rlfdz3012',
-        'HOST':'localhost',
-        'PORT':5432,
-        'OPTIONS':{
-            'options': '-c search_path=kapus'
-        }
+        'PASSWORD': 'Fikriazain23!',
+        'HOST': 'localhost',
+        'PORT': '5432',
+        'OPTIONS': {
+            'options': '-c search_path=kapus,public'
+        },
+         'TEST': {
+            'NAME': 'test_db_kapus',
+        },
+
     }
     # 'default': {
     #     'ENGINE': 'django.db.backends.postgresql_psycopg2',

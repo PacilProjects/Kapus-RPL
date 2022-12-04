@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'booking',
     'AdministrasiBuku',
     'AdministrasiPeminjam',
+    'SaranPenambahanBuku',
+    'RatingPerpustakaan',
 ]
 
 MIDDLEWARE = [
@@ -98,12 +100,8 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '5432',
         'OPTIONS': {
-            'options': '-c search_path=kapus,public'
-        },
-         'TEST': {
-            'NAME': 'test_db_kapus',
-        },
-
+            'options': '-c search_path=kapus'
+        }
     }
     # 'default': {
     #     'ENGINE': 'django.db.backends.postgresql_psycopg2',

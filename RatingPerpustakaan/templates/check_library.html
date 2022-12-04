@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>FPilih Perpus</title>
+  </head>
+  <style>
+    table, th, td {
+      border:1px solid black;
+    }
+    </style>
+  <body>
+    {% for choose in list_perpus %}
+    <table>
+      <!-- Looping Perpus yang tersedia untuk dirating -->
+      
+      <tr>
+        <td>{{choose}} </td>
+        <a href="http://127.0.0.1:8000/rating-perpustakaan/add/{{choose}}">{{choose}}</a>
+      </tr>
+      
+    </table>
+    {% endfor %}
+      <div>
+      </div>
+  </body>
+</html>

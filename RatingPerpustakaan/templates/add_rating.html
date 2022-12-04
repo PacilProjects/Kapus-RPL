@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate US!</title>
+</head>
+<body>
+    <section id='contact'>
+      <div class="container">
+        <h2>Add Rating</h2>
+        <div class="form-container">
+          <div class="form-wrapper">
+              <form class ="rate-form" action ="" method="POST" id="rate_section">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="name">{{name}}</label>
+                </div>
+                <div class="form-stars">
+                  <label for="Rating">Rating</label>
+                  <input type="radio" name="score" id="first" value = "1"></input>
+                  <input type="radio" name="score" id="second" value = "2"></input>
+                  <input type="radio" name="score" id="third" value = "3"></input>
+                  <input type="radio" name="score" id="fourth" value = "4"></input>
+                  <input type="radio" name="score" id="fifth" value = "5"></input>
+                </div>
+                <input type="submit" value="Send">
+              </form>
+          </div>
+        </div>
+      </div>
+    </section>
+</body>
+</html>

@@ -3,8 +3,7 @@ name: Django Tests
 on: ['pull_request', 'push']
 
 jobs:
-  Unit_Test:
-
+  build:
     runs-on: ubuntu-latest
     step: 
       - uses: actions/checkout@v2

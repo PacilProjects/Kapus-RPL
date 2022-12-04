@@ -20,10 +20,6 @@ jobs:
         run: 
           pip install flake8
           flake8
-      - name: Coverage Report
-        run:
-          pip install coverage
-          coverage run manage.py test
       - name: Django Testing
         run: 
           python3 manage.py test

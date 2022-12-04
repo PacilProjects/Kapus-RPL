@@ -37,8 +37,8 @@ def json_peminjaman_offline(request):
 
 def dashboard(request):
     if request.user.tipeUser == 'Pengelola':
-        book_borrow = BookBorrow.objects.all()
-        request_booking = RequestBooking.objects.all()
+        book_borrow = BookBorrow.objects.all().filter(perpustakaan=request.user.perpustakaanKerjaModel_id)
+        request_booking = RequestBooking.objects.all().filter(perpustakaan=request.user.perpustakaanKerjaModel_id)
         response = {'perpus': show_perpustakaan(request), 'book_borrow': book_borrow, 'request_booking': request_booking}
         return render(request, 'dashboard.html', response)
     else:

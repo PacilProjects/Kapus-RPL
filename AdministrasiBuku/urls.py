@@ -20,6 +20,7 @@ from AdministrasiBuku import views
 urlpatterns = [
     path('Form-Buku/', views.penambahan_buku, name='penambahan_buku'),
     path('Form-Perpus/', views.penambahan_perpus, name='penambahan_perpus'),
+    path('penambahan-stok/', views.penambahan_stok, name='penambahan_stok'),
     path('json_buku/', views.json_buku, name='json_buku'),
     path('json_perpus/', views.json_perpus, name='json_perpus'),
     path('show/', views.show_perpustakaan, name='show_perpustakaan'),

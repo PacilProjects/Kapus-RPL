@@ -1,6 +1,7 @@
 from datetime import datetime
 import json
 from django.shortcuts import redirect, render
+from AdministrasiBuku.models import Buku, Perpustakaan, PerpusBuku
 from AdministrasiPeminjam.models import PeminjamanOffline
 from AdministrasiPeminjam.forms import PeminjamanOfflineForm
 from django.core import serializers
@@ -16,17 +17,22 @@ from django.contrib.sessions.models import Session
 
 @csrf_exempt
 def peminjaman_offline(request):
-    if request.user.tipeUser == 'Pengelola':
-        peminjaman_buku = PeminjamanOfflineForm(json.loads(request.body) or None) #Nanti ganti jadi request.POST
-        print(json.loads(request.body)['nama_buku'])
-        if peminjaman_buku.is_valid() and request.method == 'POST':
-            peminjaman_buku.save()
-            buku = Buku.objects.get(isbn=json.loads(request.body)['nama_buku'])
-            buku.banyak = buku.banyak - 1
-            buku.save()
-            return redirect('json_buku')
-        response = {'peminjaman_buku': peminjaman_buku}
-        return render(request, 'penambahan_buku.html', response)
+    if request.user.tipeUser == 'Pengelola':#Nanti ganti jadi request.POST
+        if request.method == 'POST':
+            data = request.POST
+            isbn = Buku.objects.only('isbn').get(nama_buku=data['buku'])
+            target = borrow(user=data['username'], book_name=isbn.isbn, library=request.user.perpustakaanKerjaModel_id)
+            target.status = 'Peminjaman Offline'
+            target.save()
+            kuantitas = PerpusBuku.objects.get(nama_perpus_id=request.user.perpustakaanKerjaModel_id, isbn_id=isbn.isbn)
+            kuantitas.kuantitas = kuantitas.kuantitas - 1
+            kuantitas.save()
+            return HttpResponseRedirect('/')
+
+        buku = PerpusBuku.objects.all().filter(nama_perpus_id=request.user.perpustakaanKerjaModel_id).values_list('isbn_id', flat=True)
+        target = Buku.objects.all().filter(isbn__in=buku).values_list('nama_buku', flat=True)
+        response = {'peminjaman_buku': target, 'perpus': request.user.perpustakaanKerjaModel_id}
+        return render(request, 'peminjaman_offline.html', response)
     else:
         return HttpResponseRedirect('/')
 

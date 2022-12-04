@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="content">
+        <form action="" method="post">
+            {% csrf_token %}
+            <label for="">Perpustakaan: </label><br>
+            <input type="text" value="{{perpus}}" disabled name="username"><br>  
+            <label for="">Username: </label><br>
+            <input type="text" name="username"><br>   
+            <label for="">Book: </label><br>
+            <div class="dropdown">
+                <select name="buku" id="buku">
+                    {% for target in peminjaman_buku %}
+                    <option value="{{target}}">{{target}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <input type="submit" value="SIMPAN">    
+        </form>
+    </div>
+</body>
+</html>

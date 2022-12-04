@@ -25,6 +25,7 @@ def booking(request):
 def borrow(user, book_name, library):
     borrow = BookBorrow(username = user, perpustakaan = library, book = book_name)
     borrow.save()
+    return borrow
 
 def borrow_status(request):
     if request.method == "GET":

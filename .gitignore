@@ -145,9 +145,3 @@ ENV/
 .ropeproject
 
 # End of https://www.gitignore.io/api/python,intellij+iml
-
-#Ignore files for Lab1
-/.idea/
-/db.sqlite3/
-/migrations/*.py
-db.sqlite3

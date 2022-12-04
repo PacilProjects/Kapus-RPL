@@ -20,6 +20,7 @@
             <th>Username</th>
             <th>Date Request</th>
             <th>Book</th>
+            <th>Perpustakaan</th>
             <th>Reviewed?</th>
             <th>Accepted?</th>
           </tr>
@@ -28,6 +29,7 @@
             <td>{{data.username}}</td>
             <td>{{data.timestamp_request}}</td>
             <td>{{data.book}}</td>
+            <td>{{data.perpustakaan}}</td>
             <td>{{data.is_reviewed}}</td>
             <td>{{data.is_accepted}}</td>
             <td><a href="/administrasi-peminjam/dashboard/request/{{data.id_booking}}">Detail</a></td>
@@ -42,6 +44,7 @@
             <tr>
               <th>Username</th>
               <th>Book</th>
+              <th>Perpustakaan</th>
               <th>status</th>
               <th>timestamp_retrive</th>
               <th>Action</th>
@@ -50,6 +53,7 @@
             <tr>
               <td>{{data.username}}</td>
               <td>{{data.book}}</td>
+              <td>{{data.perpustakaan}}</td>
               <td>{{data.status}}</td>
               <td>{{data.timestamp_retrieval_limit}}</td>
               <td><a href="/administrasi-peminjam/dashboard/status/{{data.id_booking}}">Detail</a></td>

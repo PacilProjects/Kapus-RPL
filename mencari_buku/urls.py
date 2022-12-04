@@ -16,9 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from mencari_buku import views
+from booking.views import booking
 
 urlpatterns = [
     path('search/'         , views.search          , name='search'),
     path('search/results'  , views.search_results  , name='search_results'),
     path('search/available', views.search_available, name='search_available'),
+    path('search/book', booking, name='booking')
 ]

@@ -15,20 +15,6 @@ jobs:
             db_user: runner
             db_password: ''
 
-    services:
-      postgres:
-        image: postgres:10
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: Fikriazain23
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 5432:5432
-
     steps: 
       - uses: actions/checkout@v2
       - name: Set up Python 3.9
@@ -41,12 +27,10 @@ jobs:
           pip install --upgrade setuptools
           pip install -r requirements.txt
 
-
       - name: Start PostgreSQL
-            if: matrix.db == 'postgres'
-            run: |
-              sudo systemctl start postgresql.service
-              sudo -u postgres createuser -s runner
+        run:
+          sudo systemctl start postgresql.service
+          sudo -u postgres createuser -s runner
 
       - name: Run Pytest
         env:

@@ -9,7 +9,7 @@ def kapusUserRegister(request):
     userKapus = UserRegister(request.POST or None)
     if (userKapus.is_valid() and request.method == 'POST'):
         userKapus.save()
-        return redirect('http://127.0.0.1:8000/accounts/login/loginSuccess/')
+        return redirect('/accounts/login/loginSuccess/')
     
     response = {
         'userKapus': userKapus
@@ -33,11 +33,11 @@ def kapusUserLogin(request):
         if (user is not None):
             if (user.password == password):
                 login(request, user)
-                return redirect('http://127.0.0.1:8000/accounts/login/loginSuccess/')
+                return redirect('/accounts/login/loginSuccess/')
             else:
-                return redirect('http://127.0.0.1:8000/accounts/login/loginFailed/')
+                return redirect('/accounts/login/loginFailed/')
         else:
-            return redirect('http://127.0.0.1:8000/accounts/login/loginFailed/')
+            return redirect('/accounts/login/loginFailed/')
             
     context = {
         'form': userKapus
@@ -45,7 +45,7 @@ def kapusUserLogin(request):
 
     return render(request, 'login.html', context)
 
-@login_required(login_url='http://127.0.0.1:8000/accounts/login/')
+@login_required(login_url='/accounts/login/')
 def editUser(request):
     username = None
 
@@ -65,7 +65,7 @@ def editUser(request):
         if checkLength(hp): user.hp = hp
         user.save()
 
-        return redirect('http://127.0.0.1:8000/accounts/login/loginSuccess/')
+        return redirect('/accounts/login/loginSuccess/')
     
     response = {
         'userKapus': userKapus
@@ -89,7 +89,7 @@ def addPerpustakaan(request):
         user.perpustakaanKerjaModel = Perpustakaan.objects.get(nama=addPerpus.cleaned_data['listPerpustakaan'][0])
         user.save()
 
-        return redirect('http://127.0.0.1:8000/accounts/login/loginSuccess/')
+        return redirect('/accounts/login/loginSuccess/')
 
     context = {
         'form': addPerpus
@@ -100,14 +100,14 @@ def addPerpustakaan(request):
 def index(request):
     return render(request, 'index_login_logout.html')
 
-@login_required(login_url='http://127.0.0.1:8000/accounts/login/')
+@login_required(login_url='/accounts/login/')
 def kapusUserLogout(request):
     return render(logout(request), 'logoutSuccess.html')
 
 def successScreen(request):
     return render(request, 'success.html')
 
-@login_required(login_url='http://127.0.0.1:8000/accounts/login/')
+@login_required(login_url='/accounts/login/')
 def loginSuccessScreen(request):
     return render(request, 'loginSuccess.html')
     

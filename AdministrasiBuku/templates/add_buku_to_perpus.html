@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Penambahan Buku</h2>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <label for="">Perpustakaan:</label>
+        <div class="dropdown">
+            <select name="perpustakaan" id="perpustakaan">
+                {% for target in perpus%}
+                <option value="{{target}}">{{target}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <label for="">Buku:</label>
+        <div class="dropdown">
+            <select name="buku" id="buku">
+                {% for target in buku%}
+                <option value="{{target}}">{{target}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <label for="">Jumlah:</label>
+        <div class="digit">
+            <input type="number" name="jumlah" id="number">
+        </div>
+        <div>
+            <button class="button" type ="submit" value="Submit">
+            Submit
+            </button>
+        </div>
+    </form>
+</body>
+</html>

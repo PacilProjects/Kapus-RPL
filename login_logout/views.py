@@ -9,10 +9,10 @@ def kapusUserRegister(request):
     userKapus = UserRegister(request.POST or None)
     if (userKapus.is_valid() and request.method == 'POST'):
         userKapus.save()
-        return redirect('http://127.0.0.1:8000/accounts/login/loginSuccess/')
+        return redirect('http://127.0.0.1:8000/accounts/profile/')
     
     response = {
-        'userKapus': userKapus
+        'form': userKapus
     }
 
     return render(request, 'registration.html', response)
@@ -33,7 +33,7 @@ def kapusUserLogin(request):
         if (user is not None):
             if (user.password == password):
                 login(request, user)
-                return redirect('http://127.0.0.1:8000/accounts/login/loginSuccess/')
+                return redirect('/')
             else:
                 return redirect('http://127.0.0.1:8000/accounts/login/loginFailed/')
         else:
@@ -65,10 +65,10 @@ def editUser(request):
         if checkLength(hp): user.hp = hp
         user.save()
 
-        return redirect('http://127.0.0.1:8000/accounts/login/loginSuccess/')
+        return redirect('http://127.0.0.1:8000/accounts/profile/')
     
     response = {
-        'userKapus': userKapus
+        'form': userKapus
     }
 
     return render(request, 'edit.html', response)
@@ -89,7 +89,7 @@ def addPerpustakaan(request):
         user.perpustakaanKerjaModel = Perpustakaan.objects.get(nama=addPerpus.cleaned_data['listPerpustakaan'][0])
         user.save()
 
-        return redirect('http://127.0.0.1:8000/accounts/login/loginSuccess/')
+        return redirect('http://127.0.0.1:8000/accounts/profile/')
 
     context = {
         'form': addPerpus
@@ -102,7 +102,8 @@ def index(request):
 
 @login_required(login_url='http://127.0.0.1:8000/accounts/login/')
 def kapusUserLogout(request):
-    return render(logout(request), 'logoutSuccess.html')
+    logout(request)
+    return redirect('/')
 
 def successScreen(request):
     return render(request, 'success.html')

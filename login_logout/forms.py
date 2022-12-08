@@ -4,6 +4,11 @@ from login_logout.models import AuthUserKapus
 from AdministrasiBuku.models import Perpustakaan
 
 class UserRegister(forms.ModelForm):
+    password = forms.CharField(
+        widget=forms.PasswordInput(),
+        max_length=50
+    )
+    
     class Meta:
         model = AuthUserKapus
         fields = [

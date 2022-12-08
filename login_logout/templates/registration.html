@@ -1,58 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration</title>
+    <title>Katalog Perpustakaan</title>
 </head>
-<body>
-    <form action="" method="POST">
-        
-        {% csrf_token %}
+<style>
+    h1 {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-align: center;
+    }
 
-        <div>
-            <label>Username</label>
-            <input type="text" placeholder="Masukkan username" name="username">
-            <br>
+    form {
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+</style>
+<body>
+    {% block content %}
+    {% load crispy_forms_tags %}
+    <div class='container py-5'>
+        <h1>Register</h1>
+        <div align="center">
+        <form action = "" method = "post">
+            {% csrf_token %}
+            {{ form.username | as_crispy_field }}
+            {{ form.password | as_crispy_field }}
+            {{ form.lokasi | as_crispy_field }}
+            {{ form.email | as_crispy_field }}
+            {{ form.hp | as_crispy_field }}
+            <div>
+                <label>Tipe User</label>
+                <input type="radio" id="radio-pengguna" name="tipeUser" value="Pengguna">
+                <label for="radio-pengguna">Pengguna</label>
+                <input type="radio" id="radio-pengelola" name="tipeUser" value="Pengelola">
+                <label for="radio-pengelola">Pengelola</label>
+                <br>
+            </div>
+            <input type="submit" value="Submit">
+        </form>
         </div>
-        <div>
-            <label>Password</label>
-            <input type="password" placeholder="Masukkan password" name="password">
-            <br>
-        </div>
-        <div>
-            <label>Lokasi</label>
-            <input type="text" placeholder="Masukkan lokasi" name="lokasi">
-            <br>
-        </div>
-        <div>
-            <label>Email</label>
-            <input type="text" placeholder="Masukkan email" name="email">
-            <br>
-        </div>
-        <div>
-            <label>HP</label>
-            <input type="text" placeholder="Masukkan hp" name="hp">
-            <br>
-        </div>
-        <div>
-            <label>Tipe User</label>
-            <input type="radio" id="radio-pengguna" name="tipeUser" value="Pengguna">
-            <label for="radio-pengguna">Pengguna</label>
-            <input type="radio" id="radio-pengelola" name="tipeUser" value="Pengelola">
-            <label for="radio-pengelola">Pengelola</label>
-            <br>
-        </div>
-        
-        <div>
-            <a>
-                <button type="submit" id="submitted"> Register </button>
-            </a>
-        </div>
-    </form>
-    <a href="http://127.0.0.1:8000/accounts/login/" class="button">Login Page</a>
-    <br>
-    <a href="http://127.0.0.1:8000/accounts/" class="button">Back to Home Page</a>
+        <p class='text-center'>Already have an account yet? login<a href="/accounts/login/"> here</a>.</p>
+        <br>
+        <p class='text-center'>Back to Homepage<a href="/"> here</a>.</p>
+    </div>
+    {% endblock content %}
 </body>
 </html>

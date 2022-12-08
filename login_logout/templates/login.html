@@ -1,8 +1,46 @@
-<form action = "" method = "post">
-    {% csrf_token %}
-    {{form }}
-    <input type="submit" value="Submit">
-</form>
-<a href="http://127.0.0.1:8000/accounts/register/" class="button">Register Page</a>
-<br>
-<a href="http://127.0.0.1:8000/accounts/" class="button">Back to Home Page</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog Perpustakaan</title>
+</head>
+<style>
+    h1 {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-align: center;
+    }
+
+    form {
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+</style>
+<body>
+    {% block content %}
+    {% load crispy_forms_tags %}
+    <div class='container py-5'>
+        <h1>Login</h1>
+        <div align="center">
+        <form action = "" method = "post">
+            {% csrf_token %}
+            {{ form.username | as_crispy_field }}
+            {{ form.password | as_crispy_field }}
+            <input type="submit" value="Submit">
+        </form>
+        </div>
+        <p class='text-center'>Don't have an account yet? register<a href="/accounts/register/"> here</a>.</p>
+        <br>
+        <p class='text-center'>Back to Homepage<a href="/"> here</a>.</p>
+    </div>
+    {% endblock content %}
+</body>
+</html>

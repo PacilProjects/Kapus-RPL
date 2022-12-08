@@ -5,7 +5,7 @@ urlpatterns = [
     path('', index),
 
     path('login/', kapusUserLogin),
-    path('login/loginSuccess/', loginSuccessScreen),
+    path('profile/', loginSuccessScreen),
     path('login/loginFailed/', loginFailedScreen),
 
     path('register/', kapusUserRegister),

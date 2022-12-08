@@ -26,5 +26,7 @@ urlpatterns = [
     path('administrasi-buku/', include('AdministrasiBuku.urls')),
     path('administrasi-peminjam/', include('AdministrasiPeminjam.urls')),
     path('mencari-buku/', include('mencari_buku.urls')),
+    path('saran-penambahan-buku/', include('SaranPenambahanBuku.urls')),
+    path('rating-perpustakaan/', include('RatingPerpustakaan.urls')),
 ]
 

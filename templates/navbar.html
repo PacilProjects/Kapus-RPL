@@ -25,6 +25,17 @@
             <li class="nav-item">
                 <a class="nav-link" href="/">Home</a>
             </li>
+
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/accounts/profile/">Profile</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/accounts/login/">Login</a>
+                </li>
+            {% endif %}
+
             <!-- Tambahin aja -->
             <!-- <li class="nav-item">
                 <a class="nav-link" href="/">Home</a>

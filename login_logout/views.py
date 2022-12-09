@@ -5,11 +5,18 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 
+def show_perpustakaan(request):
+    perpus = Perpustakaan.objects.only('nama')
+    name = []
+    for i in perpus:
+        name.append(i.nama)
+    return name
+
 def kapusUserRegister(request):
     userKapus = UserRegister(request.POST or None)
     if (userKapus.is_valid() and request.method == 'POST'):
         userKapus.save()
-        return redirect('http://127.0.0.1:8000/accounts/profile/')
+        return redirect('/accounts/profile/')
     
     response = {
         'form': userKapus
@@ -35,9 +42,9 @@ def kapusUserLogin(request):
                 login(request, user)
                 return redirect('/')
             else:
-                return redirect('http://127.0.0.1:8000/accounts/login/loginFailed/')
+                return redirect('/accounts/login/loginFailed/')
         else:
-            return redirect('http://127.0.0.1:8000/accounts/login/loginFailed/')
+            return redirect('/accounts/login/loginFailed/')
             
     context = {
         'form': userKapus
@@ -45,7 +52,7 @@ def kapusUserLogin(request):
 
     return render(request, 'login.html', context)
 
-@login_required(login_url='http://127.0.0.1:8000/accounts/login/')
+@login_required(login_url='/accounts/login/')
 def editUser(request):
     username = None
 
@@ -65,7 +72,7 @@ def editUser(request):
         if checkLength(hp): user.hp = hp
         user.save()
 
-        return redirect('http://127.0.0.1:8000/accounts/profile/')
+        return redirect('/accounts/profile/')
     
     response = {
         'form': userKapus
@@ -76,31 +83,31 @@ def editUser(request):
 def checkLength(parameter):
     return len(parameter) > 0
 
+@login_required(login_url='/accounts/login/')
 def addPerpustakaan(request):
     username = None
 
     if request.user.is_authenticated:
         username = request.user.username
 
-    addPerpus = PengelolaAddPerpustakaan(request.POST or None)
-    if (request.method == 'POST' and addPerpus.is_valid()):
+    if request.method == 'POST':
+        data = request.POST
         user = AuthUserKapus.objects.get(username=username)
-        user.perpustakaanKerjaChar = addPerpus.cleaned_data['listPerpustakaan'][0]
-        user.perpustakaanKerjaModel = Perpustakaan.objects.get(nama=addPerpus.cleaned_data['listPerpustakaan'][0])
+        user.perpustakaanKerjaChar = data['perpustakaan']
+        user.perpustakaanKerjaModel = Perpustakaan.objects.get(nama=data['perpustakaan'])
         user.save()
 
-        return redirect('http://127.0.0.1:8000/accounts/profile/')
+        return redirect('/accounts/profile/')
 
     context = {
-        'form': addPerpus
+        'perpus': show_perpustakaan(request)
     }
-    
     return render(request, 'editPerpustakaan.html', context)
 
 def index(request):
     return render(request, 'index_login_logout.html')
 
-@login_required(login_url='http://127.0.0.1:8000/accounts/login/')
+@login_required(login_url='/accounts/login/')
 def kapusUserLogout(request):
     logout(request)
     return redirect('/')
@@ -108,12 +115,9 @@ def kapusUserLogout(request):
 def successScreen(request):
     return render(request, 'success.html')
 
-@login_required(login_url='http://127.0.0.1:8000/accounts/login/')
+@login_required(login_url='/accounts/login/')
 def loginSuccessScreen(request):
-    return render(request, 'loginSuccess.html')
+    return render(request, 'profile.html')
     
 def loginFailedScreen(request):
     return render(request, 'loginFailed.html')
-
-def failedScreen(request):
-    return render(request, 'failed.html')

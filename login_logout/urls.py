@@ -10,7 +10,6 @@ urlpatterns = [
 
     path('register/', kapusUserRegister),
     path('register/success/', successScreen),
-    path('register/failed/', failedScreen),
 
     path('edit/', editUser),
     path('editPerpustakaan/', addPerpustakaan),

@@ -18,9 +18,10 @@ def index(request):
 @csrf_exempt
 def check_library(request):
     if request.method == "POST":
-        list_perpus = list(BookBorrow.objects.all().filter(username = request.user.username).values_list('perpustakaan', flat=True))
+        list_perpus = set(list(BookBorrow.objects.all().filter(username = request.user.username).values_list('perpustakaan', flat=True)))
         return render(request, 'add_rating.html')
-    list_perpus = list(BookBorrow.objects.all().filter(username = request.user.username).values_list('perpustakaan', flat=True))
+    list_perpus = set(list(BookBorrow.objects.all().filter(username = request.user.username).values_list('perpustakaan', flat=True)))
+
     if len(list_perpus) > 0 :
         response = {'list_perpus': list_perpus}
         return render(request, 'check_library.html', response)
@@ -84,8 +85,17 @@ def divide(nilai_score, count_score):
     print(round(hasil, 2))
     return round(hasil, 2)
 
+@csrf_exempt
 def success(request):
     return render(request, 'success.html')
 
+@csrf_exempt
 def failed(request):
     return render(request, 'failed.html')
+
+@csrf_exempt
+def perpustakaan(request):
+    # base_perpus = Perpustakaan.objects.all()
+    # rating_perpus = list(CountRating.objects.all().filter(nama_perpus_banget = nama_perpus).values_list('final_score'))
+    # response = {'base_perpus':base_perpus}
+    return render(request, 'perpustakaan.html', response)

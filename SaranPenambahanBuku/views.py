@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 from django.http.response import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 # from booking.models import BookBorrow
    
 @csrf_exempt

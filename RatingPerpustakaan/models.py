@@ -14,10 +14,10 @@ class Rating(models.Model):
     )
     
 class CountRating(models.Model):
-    nama_perpus_banget = models.CharField(Perpustakaan.objects.all().values_list('nama'), max_length=50)
+    nama_perpus_banget = models.CharField(max_length=50)
     total_score = models.IntegerField()
     count_score = models.IntegerField()
-    final_score = models.DecimalField(max_digits=500, decimal_places=2)
+    final_score = models.FloatField()
 
 
 

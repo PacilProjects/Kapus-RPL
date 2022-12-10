@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import HttpResponseRedirect, render, redirect
 from django.core import serializers
 from AdministrasiBuku.forms import NewBook, NewPerpustakaan
@@ -45,7 +46,7 @@ def penambahan_perpus(request):
         new_perpus = NewPerpustakaan(request.POST or None)
         if new_perpus.is_valid() and request.method == 'POST':
             new_perpus.save()
-            return redirect('json_perpus')
+            return redirect('/administrasi-buku/Form-Perpus/')
         response = {'new_perpus': new_perpus}
         return render(request, 'penambahan_perpustakaan.html', response)
     else:
@@ -72,3 +73,18 @@ def json_buku(request):
 def json_perpus(request):
     data = serializers.serialize('json', Perpustakaan.objects.all())
     return HttpResponse(data, content_type="application/json")
+
+
+def checkisbn(request):
+    isbn = request.GET.get('isbn', None)
+    data = {
+        'is_taken': Buku.objects.filter(isbn=isbn).exists()
+    }
+    return JsonResponse(data)   
+
+def checkperpus(request):
+    nama = request.GET.get('nama', None)
+    data = {
+        'is_taken': Perpustakaan.objects.filter(nama=nama).exists()
+    }
+    return JsonResponse(data)   

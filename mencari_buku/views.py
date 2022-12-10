@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.db.models import Q
 
 from AdministrasiBuku.models import Buku, PerpusBuku
+from booking.models import BookBorrow
 
 
 def search(request):
@@ -22,8 +23,10 @@ def search_results(request):
     elif (search_type == "isbn"):
         results = Buku.objects.filter(Q(isbn__icontains=search_query))
 
+    booking = BookBorrow.objects.filter(Q(book__icontains=search_query))
+
     # package as dict & return
-    response = {'buku_list': results}
+    response = {'buku_list': results, 'booking_list' : booking}
 
     return render(request, 'search_results.html', response)
 

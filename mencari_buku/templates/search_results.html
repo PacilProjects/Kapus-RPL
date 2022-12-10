@@ -29,7 +29,6 @@
     <div class="row">
       <div class="col-sm">
         {% for buku in buku_list %}
-        <form action="available" method="POST">{% csrf_token %}
           <div class="card" style="width: 100%; margin-bottom: 15px;">
             <div class="card-body">
               <h5 class="card-title">{{ buku.nama_buku }}</h5>
@@ -47,7 +46,12 @@
                   </div>
                   <div class="card-footer">
                     {% if buku.tersedia == true %}
+                      <form action="book" method="POST">{% csrf_token %}
+                      <input type="hidden"   name="isbn" value={{ buku.isbn }}>
+                      <input type="hidden"   name="perpus" value={{ perpus.nama }}>
                       Status peminjaman: Tersedia
+                      <input type="submit" value="Booking">
+                      </form>
                     {% else %}
                       {% if booking_list.0 == null %}
                         Status peminjaman: Tidak Tersedia - ETA pengembalian: Tidak Diketahui
@@ -67,7 +71,6 @@
               {% endif %}
             </div>
           </div>
-        </form>
         {% endfor %}
       </div>
     </div>

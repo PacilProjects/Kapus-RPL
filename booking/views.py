@@ -14,6 +14,7 @@ def index(request):
 
 def booking(request):
     if request.method == "POST":
+        print(request.POST)
         book_name = request.POST["isbn"]
         library = request.POST["perpus"]
         user = request.user.username

@@ -1,5 +1,6 @@
 from datetime import datetime
 import json
+from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from AdministrasiBuku.models import Buku, Perpustakaan, PerpusBuku
 from AdministrasiPeminjam.models import PeminjamanOffline
@@ -20,9 +21,10 @@ def peminjaman_offline(request):
     if request.user.is_authenticated and request.user.tipeUser == 'Pengelola':
         if request.method == 'POST':
             data = request.POST
+            print(data)
             isbn = Buku.objects.only('isbn').get(nama_buku=data['buku'])
             target = borrow(user=data['username'], book_name=isbn.isbn, library=request.user.perpustakaanKerjaModel_id)
-            target.status = 'Peminjaman Offline'
+            target.status = 'Sedang Dipinjam'
             target.save()
             kuantitas = PerpusBuku.objects.get(nama_perpus_id=request.user.perpustakaanKerjaModel_id, isbn_id=isbn.isbn)
             kuantitas.kuantitas = kuantitas.kuantitas - 1
@@ -45,6 +47,7 @@ def dashboard(request):
     if request.user.is_authenticated and request.user.tipeUser == 'Pengelola':
         book_borrow = BookBorrow.objects.all().filter(perpustakaan=request.user.perpustakaanKerjaModel_id)
         request_booking = RequestBooking.objects.all().filter(perpustakaan=request.user.perpustakaanKerjaModel_id)
+        print(Perpustakaan.objects.filter(nama="Perpus1").exists())
         response = {'perpus': show_perpustakaan(request), 'book_borrow': book_borrow, 'request_booking': request_booking}
         return render(request, 'dashboard.html', response)
     else:
@@ -54,7 +57,8 @@ def dashboard(request):
 def ubah_request(request, id_booking):
     if request.user.is_authenticated and request.user.tipeUser == 'Pengelola':
         request_booking = RequestBooking.objects.get(id_booking=id_booking)
-        response = {"request": request_booking}
+        buku = Buku.objects.get(isbn=request_booking.book)
+        response = {"request": request_booking, 'buku': buku}
         print(datetime.now())
         if request.method == "POST":
             data = request.POST
@@ -75,17 +79,31 @@ def ubah_request(request, id_booking):
 def update_status(request, id_borrow):
     if request.user.is_authenticated and request.user.tipeUser == 'Pengelola':
         book_borrow = BookBorrow.objects.get(id_borrow=id_borrow)
-        response = {"book": book_borrow}
+        buku = Buku.objects.get(isbn=book_borrow.book)
+        response = {"book": book_borrow, 'buku': buku}
         if request.method == "POST":
             data = request.POST
             book_borrow.status = data['status']
             book_borrow.save()
-
             target_buku = PerpusBuku.objects.get(isbn_id=book_borrow.book, nama_perpus_id=book_borrow.perpustakaan)
             target_buku.kuantitas = target_buku.kuantitas - 1
             target_buku.save()
-
             return HttpResponseRedirect('../')
         return render(request, 'ubah_status.html', response)
     else:
         return HttpResponseRedirect('/')
+
+def delete_request(request, id_booking):
+    if request.user.is_authenticated and request.user.tipeUser == 'Pengelola':
+        request_booking = RequestBooking.objects.get(id_booking=id_booking)
+        request_booking.delete()
+        return HttpResponseRedirect('../')
+
+
+#make a function to check username availability using javascript
+def checkuser(request):
+    username = request.GET.get('username', None)
+    data = {
+        'is_taken': AuthUserKapus.objects.filter(username=username).exists()
+    }
+    return JsonResponse(data)

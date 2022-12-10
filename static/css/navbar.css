@@ -2,14 +2,14 @@ nav {
     color: #1FAD95;
     font-family: 'Quicksand', sans-serif;
     font-weight: 700;
-    min-height: 125px;
-    background-color: #F9F3DF;
+    min-height: 60px;
+    background-color: #344D67;
 }
 
 .navbar-brand {
     margin-left: 2.5rem;
     font-size: 2.5rem;
-    color: #1FAD95;
+    color: #ADE792;
 }
 
 .navbar-brand:hover {
@@ -58,10 +58,10 @@ hr {
 }
 
 .dropbtn {
-    color: #1FAD95;
+    color: #f3ecb0;
     font-size: 1.75rem;
     border: none;
-    background-color: #F9F3DF;
+    background-color: #344D67;
   }
 
 

@@ -1,12 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kapus</title>
-</head>
+{% load static %}
+
+{% include 'header.html' %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+{% endblock %}
+
+<title>Landing Page</title>
+
 <body>
-    <h1>ristek.link/LinkRPL</h1>
+  {% include 'navbar.html' %}
+  <div class="container">
+    <div class="row mt-5">
+      <div class="col-sm-8">
+        <h1>Halo User! Mau pinjam apa hari ini?</h1>
+      </div>
+      <div class="col-sm-4"></div>
+    </div>
+    <div class="row">
+      <div class="col-sm">
+        <form action="mencari-buku/search/results" method="POST">{% csrf_token %}
+          <div class="input-group rounded">
+            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon"  id="search_query" name="search_query" required/>
+            
+            <span class="input-group-text border-0" id="search-addon">
+              <select class="form-select" aria-label="Default select example" id="search_type" name="search_type">
+                <option selected value="nama_buku">Nama buku</option>
+                <option value="nama_penulis">Nama penulis</option>
+                <option value="isbn">ISBN</option>
+              </select>
+            </span>
+
+            <span class="input-group-text border-0" id="search-addon">
+              <button style="border: none;">
+                <i class="bi bi-search"></i>
+                <input type="submit" hidden/>
+              </button>
+            </span>
+
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  {% include 'footer.html' %}
 </body>
 </html>

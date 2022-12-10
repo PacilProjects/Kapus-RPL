@@ -15,18 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
-from login_logout.views import *
+from mencari_buku import views
+from booking.views import booking
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('homepage.urls')),
-    path('accounts/', include('login_logout.urls')),
-    path('booking/', include('booking.urls')),
-    path('administrasi-buku/', include('AdministrasiBuku.urls')),
-    path('administrasi-peminjam/', include('AdministrasiPeminjam.urls')),
-    path('mencari-buku/', include('mencari_buku.urls')),
-    path('saran-penambahan-buku/', include('SaranPenambahanBuku.urls')),
-    path('rating-perpustakaan/', include('RatingPerpustakaan.urls')),
+    path('search/'         , views.search          , name='search'),
+    path('search/results'  , views.search_results  , name='search_results'),
+    path('search/available', views.search_available, name='search_available'),
+    path('search/book', booking, name='booking')
 ]
-

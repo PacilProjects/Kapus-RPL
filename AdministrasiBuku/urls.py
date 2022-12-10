@@ -14,19 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
-
-from login_logout.views import *
-
+from django.urls import path, include, re_path
+from AdministrasiBuku import views
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('homepage.urls')),
-    path('accounts/', include('login_logout.urls')),
-    path('booking/', include('booking.urls')),
-    path('administrasi-buku/', include('AdministrasiBuku.urls')),
-    path('administrasi-peminjam/', include('AdministrasiPeminjam.urls')),
-    path('mencari-buku/', include('mencari_buku.urls')),
-    path('saran-penambahan-buku/', include('SaranPenambahanBuku.urls')),
-    path('rating-perpustakaan/', include('RatingPerpustakaan.urls')),
+    path('Form-Buku/', views.penambahan_buku, name='penambahan_buku'),
+    path('Form-Perpus/', views.penambahan_perpus, name='penambahan_perpus'),
+    path('penambahan-stok/', views.penambahan_stok, name='penambahan_stok'),
+    path('json_buku/', views.json_buku, name='json_buku'),
+    path('json_perpus/', views.json_perpus, name='json_perpus'),
+    path('show/', views.show_perpustakaan, name='show_perpustakaan'),
+    re_path(r'^checkisbn/$', views.checkisbn, name='checkuser'),
+    re_path(r'^checkperpus/$', views.checkperpus, name='checkperpus'),
 ]
-

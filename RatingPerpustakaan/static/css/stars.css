@@ -1,0 +1,12 @@
+.checked {
+  color: #f7c56a;
+}
+.clicked{
+  color: rgb(255, 115, 0)
+}
+input[type=radio] {
+   -webkit-appearance: none;
+   appearance: none;
+   background-color: #fff;
+   margin: 0;
+}

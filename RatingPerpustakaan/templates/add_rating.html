@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/8abecf6a35.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="{% static 'css/rate.css' %}">
+  <link rel="stylesheet" href="{% static 'css/stars.css' %}">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate US!</title>
+</head>
+<body>
+  {% include 'navbar.html' %}
+    <section id='contact'>
+      <div class="container">
+        <h2>Add Rating</h2>
+        <div class="form-container">
+          <div class="form-wrapper">
+              <form class ="rate-form" action ="" method="POST" id="rate_section">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="name">{{name}}</label>
+                </div>
+                <div class="form-stars">
+                  <label for="Rating">Rating</label>
+                  <input type="radio" name="score" class="fa fa-star" id="first" value = "1" required></input>
+                  <input type="radio" name="score" class="fa fa-star" id="second" value = "2"></input>
+                  <input type="radio" name="score" class="fa fa-star" id="third" value = "3"></input>
+                  <input type="radio" name="score" class="fa fa-star" id="fourth" value = "4"></input>
+                  <input type="radio" name="score" class="fa fa-star" id="fifth" value = "5"></input>
+                </div>
+                <input type="submit" value="Send">
+              </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+  <script src="{% static 'js/stars.js' %}"> </script>
+  <!-- <script src="jquery-3.5.1.min.js"></script> -->
+
+</body>
+</html>

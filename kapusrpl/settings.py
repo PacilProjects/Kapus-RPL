@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,10 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-+l9d&gu8rjab*e0!z%s7zf9!vn^p^fwn05oup14lo$xmc4j2zd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['34.83.249.195','127.0.0.1']
+ALLOWED_HOSTS = ['34.83.249.195','127.0.0.1', 'localhost']
 
+AUTH_USER_MODEL = 'login_logout.AuthUserKapus'
 
 # Application definition
 
@@ -38,6 +40,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'homepage',
+    'mencari_buku',
+    'login_logout',
+    'crispy_forms',
+    'booking',
+    'AdministrasiBuku',
+    'AdministrasiPeminjam',
+    'SaranPenambahanBuku',
+    'RatingPerpustakaan',
 ]
 
 MIDDLEWARE = [
@@ -70,6 +80,11 @@ TEMPLATES = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = (
+        'django.contrib.auth.backends.ModelBackend',
+    )
+
+
 WSGI_APPLICATION = 'kapusrpl.wsgi.application'
 
 
@@ -87,7 +102,19 @@ DATABASES = {
         'OPTIONS':{
             'options': '-c search_path=kapus'
         }
-    },
+
+    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'kapus',
+    #     'USER': 'postgres',
+    #     'PASSWORD': 'vs*ukM2hO459Jqk4yE1&x',
+    #     'HOST':'34.105.84.61',
+    #     'PORT':5432,
+    #     'OPTIONS':{
+    #         'options': '-c search_path=kapus'
+    #     }
+    # },
 
 }
 
@@ -126,9 +153,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
+# You can use this directory to store project-wide static files.
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
+# This is the directory for storing `collectstatic` results.
+# This shouldn't be included in your Git repository.
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+

@@ -1,0 +1,191 @@
+nav {
+    color: #1FAD95;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    min-height: 60px;
+    background-color: #344D67;
+}
+
+.navbar-brand {
+    margin-left: 2.5rem;
+    font-size: 2.5rem;
+    color: #ADE792;
+}
+
+.navbar-brand:hover {
+    color: #186659;
+}
+
+.navbar-brand img {
+    display: inline-block;
+    padding-bottom: 0.25rem;
+    width: 4rem;
+}
+.nav-item {
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.nav-link {
+    font-size: 1.75rem;
+    color: #1FAD95;
+}
+
+.nav-link:hover {
+    color: #186659;
+}
+
+hr {
+    background-color: #1FAD95;
+}
+
+.bi {
+  font-size: 2rem;
+  color: #1FAD95;
+}
+
+.footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    height: 50px;
+    line-height: 50px;
+    background-color: white;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8rem;
+    color: #1FAD95;
+}
+
+.dropbtn {
+    color: #f3ecb0;
+    font-size: 1.75rem;
+    border: none;
+    background-color: #344D67;
+  }
+
+
+  /* The container <div> - needed to position the dropdown content */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border-radius: 10px; 
+    z-index: 1;
+  }
+
+  .dropdown-content.profile {
+    right: 0;
+    left: auto;
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    color: #186659;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: all 0.2s ease-out;
+  }
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {background-color: #ddd; transition: all 0.2s ease-in;}
+  
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-content {display: block;}
+  
+  /* Change the background color of the dropdown button when the dropdown content is shown */
+  .dropdown:hover .dropbtn {color: #186659;}
+
+  @media (min-width: 768px) {
+    .animate {
+      animation-duration: 0.3s;
+      -webkit-animation-duration: 0.3s;
+      animation-fill-mode: both;
+      -webkit-animation-fill-mode: both;
+    }
+  }
+  
+  @keyframes slideIn {
+    0% {
+      transform: translateY(1rem);
+      opacity: 0;
+    }
+  
+    100% {
+      transform: translateY(0rem);
+      opacity: 1;
+    }
+  
+    0% {
+      transform: translateY(1rem);
+      opacity: 0;
+    }
+  }
+  
+  @-webkit-keyframes slideIn {
+    0% {
+      -webkit-transform: transform;
+      -webkit-opacity: 0;
+    }
+  
+    100% {
+      -webkit-transform: translateY(0);
+      -webkit-opacity: 1;
+    }
+  
+    0% {
+      -webkit-transform: translateY(1rem);
+      -webkit-opacity: 0;
+    }
+  }
+  
+  .slideIn {
+    -webkit-animation-name: slideIn;
+    animation-name: slideIn;
+  }
+
+@media screen and (max-width: 991.5px) {
+    .navbar {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+    .navbar-brand img {
+        display: inline-block;
+        padding-bottom: 0.25rem;
+    }
+    .custom-toggler.navbar-toggler { 
+        border-color: #1FAD95; 
+    } 
+    .custom-toggler .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(31, 173, 149, 0.8)' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .navbar-brand {
+        margin-left: 1rem;
+        font-size: 2rem;
+    }
+    .navbar-brand img {
+        width: 2.5rem;
+    }
+}
+
+/* That damn Galaxy Fold */
+@media screen and (max-width: 320.5px) {
+    .navbar-brand img{
+        display: none!important;
+    }
+    .footer {
+        font-size: 0.6rem;
+    }
+}

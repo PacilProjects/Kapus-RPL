@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    input{
+        color: rgb(0, 48, 73);
+        border-width: 3px;
+        border-style: solid;
+        border-radius: 10px;
+        border-color: rgb(8, 32, 50);
+        background-color: rgb(234, 226, 183);
+    }
+    form{
+        margin-left: auto;
+        margin-right: auto;
+    }
+    h1{
+        text-align: center;
+        color: white;
+    }
+    .styling{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+    .button{
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 2%;
+        margin-bottom: auto;
+        color: white;
+        padding: 8px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: flex;
+        font-size: 16px;
+        transition-duration: 0.4s;
+        background-color: rgb(0, 48, 73); 
+        border: 2px solid rgb(234, 226, 183);
+    }
+    .button:hover{
+        background-color: rgb(234, 226, 183);
+        color: rgb(0, 48, 73);
+    }
+    .inputDiv{
+        display: flex;
+        flex-direction: column;
+    }
+    .inputDiv label{
+        color: white;
+    }
+</style>
+<h1>
+    Failed
+</h1>
+<body style="background-color: rgb(0, 48, 73);">
+    <form action="" method="POST"> {% csrf_token %}
+        <div class="styling">
+        </div>
+            <div>
+                <button class="button" type="button" onclick="back()">
+                    Back
+                  <script>
+                    function back(){
+                      window.location.href="/";
+                    }
+                  </script>
+                  </button>
+                </div>
+
+    </form>
+</body>
+</html>

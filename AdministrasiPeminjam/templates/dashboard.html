@@ -1,0 +1,124 @@
+{% load static %}
+
+{% include 'header.html' %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
+<title>Dashboard Page</title>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<body>
+
+  {% include 'navbar.html' %}
+  <div class="section-title">
+      <h1>Booking Request</h1>
+  </div>
+    <div class="container mt-5">
+      <div class="row">
+        <table class="table">
+        <thead>
+        <tr class="table-active">
+            <th scope="col">No</th>
+            <th scope="col">Username</th>
+            <th scope="col">ISBN</th>
+            <th scope="col">Perpustakaan</th>
+            <th scope="col">Date Request</th>
+            <th scope="col">Reviewed?</th>
+            <th scope="col">Accepted?</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+          {% for data in request_booking %}
+          <tr>
+              <th scope="row">{{ forloop.counter }}</th>
+              <td>{{ data.username }}</td>
+              <td>{{ data.book }}</td>
+              <td>{{data.perpustakaan}}</td>
+              <td>{{ data.timestamp_request }}</td>
+              {% if not data.is_reviewed %}
+              <td>
+                  <span class="badge rounded-pill bg-warning">Belum Di-Review</span>
+              </td>
+              {% else %}
+              <td>
+                  <span class="badge rounded-pill bg-success">Seen</span>
+              </td>
+              {% endif %}
+
+              {% if not data.is_accepted and data.is_reviewed %}
+              <td>
+                  <span class="badge rounded-pill bg-danger">Ditolak</span>
+              </td>
+              {% elif not data.is_accepted and not data.is_reviewed %}
+              <td>
+                  <span class="badge rounded-pill bg-warning">Belum Di-Review</span>
+              </td>
+              {% else %}
+              <td>
+                  <span class="badge rounded-pill bg-success">Diterima</span>
+              </td>
+              {% endif %}
+              {% if not data.is_accepted or not data.is_reviewed %}
+              <td><a href="/administrasi-peminjam/dashboard/request/{{data.id_booking}}"><button type="button" class="btn btn-primary">Update</button></button></a></td>
+              {% else %}
+              <td><a href="/administrasi-peminjam/dashboard/delete/{{data.id_booking}}"><button type="button" class="btn btn-danger">Delete</button></button></a></td>
+              {% endif %}
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section-title">
+      <h1>Ongoing Booking</h1>
+  </div>
+    <div class="container mt-5">
+      <div class="row">
+        <table class="table">
+        <thead>
+        <tr class="table-active">
+            <th scope="col">No</th>
+            <th scope="col">Username</th>
+            <th scope="col">ISBN</th>
+            <th scope="col">Perpustakaan</th>
+            <th scope="col">Retrieval Limit</th>
+            <th scope="col">Return Limit</th>
+            <th scope="col">Status</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+          {% for data in book_borrow %}
+          <tr>
+              <th scope="row">{{ forloop.counter }}</th>
+              <td>{{ data.username }}</td>
+              <td>{{ data.book }}</td>
+              <td>{{ data.perpustakaan }}</td>
+              <td>{{data.timestamp_retrieval_limit}}</td>
+              <td>{{data.timestamp_return_limit}}</td>
+              {% if data.status == 'Siap Diambil' %}
+                <td>
+                  <span class="badge rounded-pill bg-warning">Siap Diambil</span>
+                </td>
+              {% elif data.status == 'Sedang Dipinjam' %}
+                <td>
+                  <span class="badge rounded-pill bg-success">Sedang Dipinjam</span>
+                </td>
+              {% elif data.status == 'Melebihi Batas Waktu' %}
+                <td>
+                  <span class="badge rounded-pill bg-danger">Melebihi Batas Waktu</span>
+                </td>
+              {% endif %}
+              <td><a href="/administrasi-peminjam/dashboard/status/{{data.id_borrow}}"><button type="button" class="btn btn-primary">Update</button></button></a></td>
+          </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  {% include 'footer.html' %}
+</body>
+</html>

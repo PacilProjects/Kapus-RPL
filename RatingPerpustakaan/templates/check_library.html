@@ -1,0 +1,37 @@
+{% load static %}
+
+{% include 'header.html' %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/check_library.css' %}">
+{% endblock %}
+
+    <title>Pilih Perpus</title>
+  </head>
+  <body>
+    {% include 'navbar.html' %}
+    <div class="container mt-5">
+      <div class="row">
+          <table class="table">
+      <thead>
+        <tr>
+          <th scope="col"> </th>
+          <th scope="col">Nama Perpustakaan</th>
+          <th scope="col"> </th>
+        </tr>
+      </thead>
+
+    {% for choose in list_perpus %}
+    <tbody>
+      <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{ choose }}</td>
+        <td><a href="http://127.0.0.1:8000/rating-perpustakaan/add/{{choose}}">{{choose}}</a></td>
+      </tr>
+    </tbody>
+    {% endfor %}
+  
+  </table>
+      <div>
+      </div>
+  </body>

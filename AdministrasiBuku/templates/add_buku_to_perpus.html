@@ -1,40 +1,76 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+{% load static %}
+{% include 'header.html' %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/penambahan_perpustakaan.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+{% endblock %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="{% static 'js/isbnchecker.js' %}"></script>
+<title>Penambahan Buku ke Perpustakaan</title>
 <body>
-    <h2>Penambahan Buku</h2>
-    <form action="" method="POST">
-        {% csrf_token %}
-        <label for="">Perpustakaan:</label>
-        <div class="dropdown">
-            <select name="perpustakaan" id="perpustakaan">
-                {% for target in perpus%}
-                <option value="{{target}}">{{target}}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <label for="">Buku:</label>
-        <div class="dropdown">
-            <select name="buku" id="buku">
-                {% for target in buku%}
-                <option value="{{target}}">{{target}}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <label for="">Jumlah:</label>
-        <div class="digit">
-            <input type="number" name="jumlah" id="number">
-        </div>
-        <div>
-            <button class="button" type ="submit" value="Submit">
-            Submit
-            </button>
-        </div>
-    </form>
+    {% include 'navbar.html' %}
+    <div class="section-title">
+        <h1>Penambahan Buku ke Perpustakaan</h1>
+    </div>
+    <div class="form">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="Perpustakaan">Perpustakaan</label>
+                <select name="perpustakaan" id="perpustakaan" class="form-control">
+                    {% for target in perpus%}
+                    <option value="{{target}}">{{target}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Nama Buku</label>
+                <select name="buku" id="buku" class="form-control">
+                    {% for target in buku%}
+                    <option value="{{target}}">{{target}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="">Jumlah</label>
+                <input type="number" name="jumlah" id="number" class="form-control">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">Submit</button>
+            </div>
+          </form>
+    </div>
+    {% include 'footer.html' %}
 </body>
 </html>
+
+<!-- <form action="" method="POST">
+    {% csrf_token %}
+    <label for="">Perpustakaan:</label>
+    <div class="dropdown">
+        <select name="perpustakaan" id="perpustakaan">
+            {% for target in perpus%}
+            <option value="{{target}}">{{target}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <label for="">Buku:</label>
+    <div class="dropdown">
+        <select name="buku" id="buku">
+            {% for target in buku%}
+            <option value="{{target}}">{{target}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <label for="">Jumlah:</label>
+    <div class="digit">
+        <input type="number" name="jumlah" id="number">
+    </div>
+    <div>
+        <button class="button" type ="submit" value="Submit">
+        Submit
+        </button>
+    </div>
+</form> -->

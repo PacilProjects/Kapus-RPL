@@ -1,58 +1,151 @@
-<!DOCTYPE html>
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration</title>
-</head>
-<body>
-    <form action="" method="POST">
-        
-        {% csrf_token %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.104.2">
+    <title>Log In</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
 
-        <div>
-            <label>Username</label>
-            <input type="text" placeholder="Masukkan username" name="username">
-            <br>
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+            }
+        }
+
+        .b-example-divider {
+            height: 3rem;
+            background-color: rgba(0, 0, 0, .1);
+            border: solid rgba(0, 0, 0, .15);
+            border-width: 1px 0;
+            box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+        }
+
+        .b-example-vr {
+            flex-shrink: 0;
+            width: 1.5rem;
+            height: 100vh;
+        }
+
+        .bi {
+            vertical-align: -.125em;
+            fill: currentColor;
+        }
+
+        .nav-scroller {
+            position: relative;
+            z-index: 2;
+            height: 2.75rem;
+            overflow-y: hidden;
+        }
+
+        .nav-scroller .nav {
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 1rem;
+            margin-top: -1px;
+            overflow-x: auto;
+            text-align: center;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .h1-signin {
+            color: #1FAD95;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        .signin-button {
+            background-color: #1FAD95;
+            border: 1.5px solid #1FAD95;
+        }
+
+        .signin-button:hover {
+            background-color: #186659;
+            border: 1.5px solid #186659;
+        }
+
+        .div-login {
+            width: 300px;
+            height: 525px;
+            border-radius: 25px;
+            background-color: #F9F3DF;
+        }
+
+        .br-login {
+            display: block; /* makes it have a width */
+            content: ""; /* clears default height */
+            margin-top: 5; /* change this to whatever height you want it */
+        }
+        
+        .br-space {
+            display: block; /* makes it have a width */
+            content: ""; /* clears default height */
+            margin-top: 2.5; /* change this to whatever height you want it */
+        }
+
+    </style>
+</head>
+<body class="text-center">
+<main class="div-login form-signin w-100 m-auto">
+    <form action = "" method = "post">
+        {% csrf_token %}
+        <h2 class="h1-signin">Katalog Perpustakaan</h2>
+        <br>
+        <div class="form-floating">
+        <input name="username" class="form-control" id="floatingInput" placeholder="Urname">
+        <label for="floatingInput">Username</label>
         </div>
-        <div>
-            <label>Password</label>
-            <input type="password" placeholder="Masukkan password" name="password">
-            <br>
+        <br class="br-space">
+        <div class="form-floating">
+            <input name="lokasi"  class="form-control" id="floatingInput" placeholder="Lokasi">
+            <label for="floatingInput">Lokasi</label>
         </div>
-        <div>
-            <label>Lokasi</label>
-            <input type="text" placeholder="Masukkan lokasi" name="lokasi">
-            <br>
+        <br class="br-space">
+        <div class="form-floating">
+            <input name="email" class="form-control" id="floatingInput" placeholder="Lokasi">
+            <label for="floatingInput">Email</label>
         </div>
-        <div>
-            <label>Email</label>
-            <input type="text" placeholder="Masukkan email" name="email">
-            <br>
+        <br class="br-space">
+        <div class="form-floating">
+            <input name="hp" class="form-control" id="floatingInput" placeholder="Nomor HP">
+            <label for="floatingInput">Nomor HP</label>
         </div>
-        <div>
-            <label>HP</label>
-            <input type="text" placeholder="Masukkan hp" name="hp">
-            <br>
+        <br class="br-space">
+        <div class="form-floating">
+            <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <label for="floatingPassword">Password</label>
         </div>
+        <br class="br-space">
         <div>
-            <label>Tipe User</label>
             <input type="radio" id="radio-pengguna" name="tipeUser" value="Pengguna">
             <label for="radio-pengguna">Pengguna</label>
             <input type="radio" id="radio-pengelola" name="tipeUser" value="Pengelola">
             <label for="radio-pengelola">Pengelola</label>
             <br>
         </div>
-        
-        <div>
-            <a>
-                <button type="submit" id="submitted"> Register </button>
-            </a>
-        </div>
+        <br class="br-login">
+        <button class="w-100 btn btn-lg btn-primary signin-button" type="submit" value="Submit">Register</button>
     </form>
-    <a href="http://127.0.0.1:8000/accounts/login/" class="button">Login Page</a>
-    <br>
-    <a href="http://127.0.0.1:8000/accounts/" class="button">Back to Home Page</a>
+    <p class='text-center'>Already have an account yet? login<a href="/accounts/login/"> here</a>.</p>
+</main>
 </body>
 </html>

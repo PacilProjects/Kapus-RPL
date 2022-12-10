@@ -1,0 +1,57 @@
+{% load static %}
+
+{% include 'header.html' %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/list_peminjaman.css' %}">
+{% endblock %}
+
+<title>Landing Page</title>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<body>
+    <!-- JavaScript Bundle with Popper -->
+    {% include 'navbar.html' %}
+    <div class="container mt-5">
+        <div class="row">
+                <table class="table">
+                    <thead>
+                    <tr class="table-active">
+                        <th scope="col">No</th>
+                        <th scope="col">Buku</th>
+                        <th scope="col">Perpustakaan</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Batas Pengambilan</th>
+                        <th scope="col">Batas Pengembalian</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for borrow in list_peminjaman %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ borrow.book }}</td>
+                        <td>{{ borrow.perpustakaan }}</td>
+                        {% if borrow.status == 'Siap Diambil' %}
+                        <td>
+                            <span class="badge rounded-pill bg-warning">Siap Diambil</span>
+                        </td>
+                        {% elif borrow.status == 'Melebihi Batas Waktu' %}
+                        <td>
+                            <span class="badge rounded-pill bg-danger">Melebihi Batas Waktu</span>
+                        </td>
+                        {% else %}
+                        <td>
+                            <span class="badge rounded-pill bg-success">Sedang Dipinjam</span>
+                        </td>
+                        {% endif %}
+                        <td>{{ borrow.timestamp_retrieval_limit }}</td>
+                        <td>{{ borrow.timestamp_return_limit }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% include 'footer.html' %}
+</body>
+</html>

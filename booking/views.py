@@ -9,7 +9,8 @@ from .models import RequestBooking, BookBorrow
 def index(request):
     if request.method == "GET":
         request_model = RequestBooking.objects.all().filter(username=request.user.username).values()[::1]
-        return JsonResponse(request_model, safe=False)
+        response = {"list_request": request_model}
+        return render(request, "list_booking.html", response)
 
 def booking(request):
     if request.method == "POST":
@@ -28,4 +29,5 @@ def borrow(user, book_name, library):
 def borrow_status(request):
     if request.method == "GET":
         borrow_model = BookBorrow.objects.all().filter(username=request.user.username).values()[::1]
-        return JsonResponse(borrow_model, safe=False)
+        response = {"list_peminjaman": borrow_model}
+        return render(request, "list_peminjaman.html", response)

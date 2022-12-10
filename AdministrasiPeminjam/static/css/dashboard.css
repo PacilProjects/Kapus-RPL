@@ -1,0 +1,27 @@
+th {
+    color: #51aa9b !important;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.section-title{
+
+    display: flex;
+    justify-content: center;
+}
+
+h1{
+    margin-top: 1em;
+}
+
+
+.btn-primary {
+    color: #fff;
+    background-color: #288cdf;
+    border-color: #477dce;
+}
+
+.container{
+    margin-bottom: 2em;
+}
+
+

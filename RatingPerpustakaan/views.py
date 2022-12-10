@@ -25,14 +25,7 @@ def check_library(request):
         response = {'list_perpus': list_perpus}
         return render(request, 'check_library.html', response)
     else :
-        redirect('/')
-
-@csrf_exempt
-def available_library(request):
-    perpus = request.POST["nama_perpustakaan"]
-    choose_library = Rating.objects.all()  # TODO Implement this
-    response = {'choose_library': choose_library}
-    return render(request, 'check_availablity.html', response)
+        return redirect("/rating-perpustakaan/add/failed/")
 
 @csrf_exempt
 def add_rating_suggestion(request, nama_perpus):
@@ -76,7 +69,7 @@ def add_rating_suggestion(request, nama_perpus):
                     rate_final.final_score = final_score
                     rate_final.save()
 
-        return redirect("http://127.0.0.1:8000/rating-perpustakaan/add/success/")
+        return redirect("/rating-perpustakaan/add/success/")
 
     else:
         name = nama_perpus
@@ -93,3 +86,6 @@ def divide(nilai_score, count_score):
 
 def success(request):
     return render(request, 'success.html')
+
+def failed(request):
+    return render(request, 'failed.html')

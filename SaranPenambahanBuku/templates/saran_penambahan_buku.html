@@ -1,8 +1,14 @@
 {% load static %}
 
+{% include 'header.html' %}
+
 {% block css %}
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'css/login.css' %}"> -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
+    <link rel="stylesheet" href="{% static 'css/saran_penambahan_buku.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 {% endblock %}
 
 <!doctype html>
@@ -13,131 +19,38 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.104.2">
+
     <title>Saran Penambahan Buku</title>
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
-
-    <style>
-        .container {
-            background-color: #222222;
-        }   
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            user-select: none;
-        }
-
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-            font-size: 3.5rem;
-            }
-        }
-
-        .b-example-divider {
-            height: 3rem;
-            background-color: rgba(0, 0, 0, .1);
-            border: solid rgba(0, 0, 0, .15);
-            border-width: 1px 0;
-            box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-        }
-
-        .b-example-vr {
-            flex-shrink: 0;
-            width: 1.5rem;
-            height: 100vh;
-        }
-
-        .bi {
-            vertical-align: -.125em;
-            fill: currentColor;
-        }
-
-        .nav-scroller {
-            position: relative;
-            z-index: 2;
-            height: 2.75rem;
-            overflow-y: hidden;
-        }
-
-        .nav-scroller .nav {
-            display: flex;
-            flex-wrap: nowrap;
-            padding-bottom: 1rem;
-            margin-top: -1px;
-            overflow-x: auto;
-            text-align: center;
-            white-space: nowrap;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .h1-signin {
-            color: #344D67;
-            font-family: 'Quicksand', sans-serif;
-            text-align: center;
-            font-size: 2.2rem;
-        }
-
-        .signin-button {
-            background-color: #1FAD95;
-            border: 1.5px solid #1FAD95;
-        }
-
-        .signin-button:hover {
-            background-color: #186659;
-            border: 1.5px solid #186659;
-        }
-
-        .div-login {
-            width: 300px;
-            height: 525px;
-            border-radius: 25px;
-            background-color: #F3ECB0;
-        }
-
-        .br-login {
-            display: block; /* makes it have a width */
-            content: ""; /* clears default height */
-            margin-top: 5; /* change this to whatever height you want it */
-        }
-        
-        .br-space {
-            display: block; /* makes it have a width */
-            content: ""; /* clears default height */
-            margin-top: 2.5; /* change this to whatever height you want it */
-        }
-
-    </style>
 </head>
-
 <body class="container">
-<main class="div-login form-signin w-100 m-auto">
+    {% include 'navbar.html' %} 
+<div class="div-login form-signin w-100 m-auto">
     <form action = "" method = "post">
         {% csrf_token %}
         <h2 class="h1-signin">Saran Penambahan Buku</h2>
         <br>
         <div class="form-floating">
-        <input name="nama_buku" class="form-control" id="floatingInput" placeholder="Nama Buku">
+        <input name="nama_buku" class="form-control" id="floatingInput" placeholder="Nama Buku" required>
         <label for="floatingInput">Nama Buku</label>
         </div>
         <br class="br-space">
         <div class="form-floating">
-            <input name="ISBN"  class="form-control" id="floatingInput" placeholder="ISBN">
+            <input name="ISBN"  class="form-control" id="floatingInput" placeholder="ISBN" required>
             <label for="floatingInput">ISBN</label>
         </div>
         <br class="br-space">
         <div class="form-floating">
-            <input name="nama_penulis" class="form-control" id="floatingInput" placeholder="Nama Penulis">
+            <input name="nama_penulis" class="form-control" id="floatingInput" placeholder="Nama Penulis" required>
             <label for="floatingInput">Nama Penulis</label>
         </div>
         <br class="br-space">
         <div class="form-floating">
-            <input name="nama_penerbit" class="form-control" id="floatingInput" placeholder="Nama Penerbit">
+            <input name="nama_penerbit" class="form-control" id="floatingInput" placeholder="Nama Penerbit" required>
             <label for="floatingInput">Nama Penerbit</label>
         </div>
         <button class="w-100 btn btn-lg btn-primary signin-button" type="submit" value="Submit">Submit</button>
     </form>
-</main>
+</div>
 
 </body>
 </html>

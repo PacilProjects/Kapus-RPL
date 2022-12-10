@@ -14,9 +14,12 @@ def show_perpustakaan(request):
 
 def kapusUserRegister(request):
     userKapus = UserRegister(request.POST or None)
-    if (userKapus.is_valid() and request.method == 'POST'):
-        userKapus.save()
-        return redirect('/accounts/profile/')
+    if request.method == 'POST':
+        if userKapus.is_valid():
+            userKapus.save()
+            return redirect('/accounts/register/registerSuccess/')
+        else:
+            return redirect('/accounts/register/registerFailed/')
     
     response = {
         'form': userKapus
@@ -40,7 +43,7 @@ def kapusUserLogin(request):
         if (user is not None):
             if (user.password == password):
                 login(request, user)
-                return redirect('/')
+                return redirect('/accounts/login/loginSuccess/')
             else:
                 return redirect('/accounts/login/loginFailed/')
         else:
@@ -66,19 +69,50 @@ def editUser(request):
         lokasi = userKapus.cleaned_data['lokasi']
         hp = userKapus.cleaned_data['hp']
 
-        user = AuthUserKapus.objects.get(username=username)
-        if checkLength(password): user.password = password
-        if checkLength(lokasi): user.lokasi = lokasi
-        if checkLength(hp): user.hp = hp
-        user.save()
+        try:
+            user = AuthUserKapus.objects.get(username=username)
+        except:
+            user = None
 
-        return redirect('/accounts/profile/')
+        if user is not None:
+            if checkLength(password): user.password = password
+            if checkLength(lokasi): user.lokasi = lokasi
+            if checkLength(hp): user.hp = hp
+            user.save()
+
+            return redirect('/accounts/profile/changeSuccess/')
+        else:
+            return redirect('/accounts/profile/changeFailed/')
     
     response = {
         'form': userKapus
     }
 
     return render(request, 'edit.html', response)
+
+def forgetPassword(request):
+    userKapus = UserLogin(request.POST or None)
+    if (userKapus.is_valid() and request.method == 'POST'):
+        username = userKapus.cleaned_data['username']
+        password = userKapus.cleaned_data['password']
+
+        try:
+            user = AuthUserKapus.objects.get(username=username)
+        except:
+            user = None
+
+        if user is not None:
+            if checkLength(password): user.password = password
+            user.save()
+            return redirect('/accounts/forgot/forgotSuccess/')
+        else:
+            return redirect('/accounts/forgot/forgotFailed/')
+    
+    response = {
+        'form': userKapus
+    }
+
+    return render(request, 'editPassword.html', response)
 
 def checkLength(parameter):
     return len(parameter) > 0
@@ -112,12 +146,30 @@ def kapusUserLogout(request):
     logout(request)
     return redirect('/')
 
-def successScreen(request):
-    return render(request, 'success.html')
-
 @login_required(login_url='/accounts/login/')
-def loginSuccessScreen(request):
+def profile(request):
     return render(request, 'profile.html')
     
 def loginFailedScreen(request):
     return render(request, 'loginFailed.html')
+
+def loginSuccessScreen(request):
+    return render(request, 'loginSuccess.html')
+
+def registerFailedScreen(request):
+    return render(request, 'registerFailed.html')
+
+def registerSuccessScreen(request):
+    return render(request, 'registerSuccess.html')
+
+def forgotFailedScreen(request):
+    return render(request, 'forgotFailed.html')
+
+def forgotSuccessScreen(request):
+    return render(request, 'forgotSuccess.html')
+
+def editFailedScreen(request):
+    return render(request, 'editFailed.html')
+
+def editSuccessScreen(request):
+    return render(request, 'editSuccess.html')

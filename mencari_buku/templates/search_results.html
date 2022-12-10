@@ -29,13 +29,32 @@
     <div class="row">
       <div class="col-sm">
         {% for buku in buku_list %}
-          <li>
-            {{ buku.nama_buku }}, {{ buku.penulis }}, {{ buku.isbn }}
-            <form action="available" method="POST">{% csrf_token %}
-              <input type="hidden"  id="search_query" name="search_query" value={{ buku.nama_buku }}>
-              <input type="submit" value="Cek">
-            </form>
-          </li>
+        <form action="available" method="POST">{% csrf_token %}
+          <div class="card" style="width: 100%; margin-bottom: 15px;">
+            <div class="card-body">
+              <h5 class="card-title">{{ buku.nama_buku }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">Penulis: {{ buku.penulis }} - Penerbit: {{ buku.penerbit }} - ISBN: {{ buku.isbn }}</h6>
+
+              {% if buku.perpustakaan.all.0 == null %}
+                Buku tidak tersedia di lokasi manapun...
+              {% else %}
+                {% for perpus in buku.perpustakaan.all %}
+                <div class="card" style="margin-top: 15px;">
+                  <div class="card-body">
+                    {{ perpus.nama }}<br>
+                    Lokasi: {{ perpus.lokasi }}<br>
+                    Alamat: {{ perpus.alamat }}<br>
+
+                    <input type="hidden"  id="search_query" name="search_query" value={{ buku.nama_buku }}>
+                    <input type="submit" style="margin-top: 30px;" href="#" class="btn btn-primary" value="Cek ketersediaan">
+                  
+                  </div>
+                </div>
+                {% endfor %}
+              {% endif %}
+            </div>
+          </div>
+        </form>
         {% endfor %}
       </div>
     </div>

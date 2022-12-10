@@ -21,6 +21,9 @@
 .idea/**/gradle.xml
 .idea/**/libraries
 
+# Static
+staticfiles/
+
 # Mongo Explorer plugin:
 .idea/**/mongoSettings.xml
 

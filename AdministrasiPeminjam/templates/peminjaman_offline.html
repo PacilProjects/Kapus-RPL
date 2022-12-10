@@ -1,29 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+{% load static %}
+{% include 'header.html' %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/ubah_status.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+{% endblock %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<title>Peminjaman Offline</title>
+<script src="{% static 'js/checkusername.js' %}"></script>
 <body>
-    <div class="content">
+    {% include 'navbar.html' %}
+    <div class="section-title">
+        <h1>Peminjaman Offline</h1>
+    </div>
+    <div class="form">
         <form action="" method="post">
             {% csrf_token %}
-            <label for="">Perpustakaan: </label><br>
-            <input type="text" value="{{perpus}}" disabled name="username"><br>  
-            <label for="">Username: </label><br>
-            <input type="text" name="username"><br>   
-            <label for="">Book: </label><br>
-            <div class="dropdown">
-                <select name="buku" id="buku">
+            <div class="form-group">
+                <label for="">Perpustakaan: </label><br>
+                <input type="text" value="{{perpus}}" readonly class = 'form-control' name="perpustakaan"><br>  
+            </div>
+            <div class="form-group">
+                <label for="">Username: </label><br>
+                <input type="text" class = 'form-control' id="username" name="username"><br> 
+                <small id="username-error" class="text-danger"></small>
+            </div>
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select name="buku" id="buku" class="form-control">
                     {% for target in peminjaman_buku %}
                     <option value="{{target}}">{{target}}</option>
                     {% endfor %}
                 </select>
             </div>
-            <input type="submit" value="SIMPAN">    
-        </form>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">Submit</button>
+            </div>
+          </form>
     </div>
+    {% include 'footer.html' %}
 </body>
 </html>
+

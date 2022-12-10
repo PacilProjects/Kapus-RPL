@@ -1,21 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+{% load static %}
+
+{% include 'header.html' %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/ubah_status.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+{% endblock %}
+
+<title>Ubah Status</title>
+
 <body>
-    <div class="content">
+    {% include 'navbar.html' %}
+    <div class="section-title">
+        <h1>Ubah Status</h1>
+    </div>
+    <div class="form">
         <form action="" method="post">
             {% csrf_token %}
-            <label for="">Username: </label><br>
-            <input type="text" value="{{book.username}}" disabled name="username"><br>
-            <label for="">Status: </label><br>
-            <input type="text" name="status"><br>
-            <input type="submit" value="SIMPAN">
-        </form>
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" value="{{book.username}}" readonly class="form-control" id="username">
+            </div>
+            <div class="form-group">
+                <label for="username">Book</label>
+                <input type="text" value="{{buku.nama_buku}}" readonly class="form-control" id="username">
+            </div>
+            <div class="form-group">
+                <label for="username">ISBN</label>
+                <input type="text" value="{{book.book}}" readonly class="form-control" id="username">
+            </div>
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select name="status" id="status" class="form-control">
+                    <option value="Siap Diambil">Siap Diambil</option>
+                    <option value="Sedang Dipinjam">Sedang Dipinjam</option>
+                    <option value="Melebihi Batas Waktu">Melebihi Batas Waktu</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">Submit</button>
+            </div>
+          </form>
     </div>
+    {% include 'footer.html' %}
 </body>
 </html>

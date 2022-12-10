@@ -15,12 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from AdministrasiPeminjam.views import peminjaman_offline, json_peminjaman_offline, dashboard, update_status, ubah_request
+from AdministrasiPeminjam.views import peminjaman_offline, json_peminjaman_offline, dashboard, update_status, ubah_request, delete_request
 
 urlpatterns = [
     path('offline/', peminjaman_offline, name='Index'),
     path('dashboard/', dashboard, name='dashboard'),
     path('dashboard/status/<str:id_borrow>', update_status, name='dashboard'),
     path('dashboard/request/<str:id_booking>', ubah_request, name='request'),
+    path('dashboard/delete/<str:id_booking>', delete_request, name='delete'),
     path('json_peminjaman_offline/',json_peminjaman_offline, name='json_peminjaman_offline'),
 ]
